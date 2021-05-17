@@ -1,13 +1,15 @@
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoggedNav from './components/LoggedNav';
+
+import React from 'react';
+import Navigation from './components/Navigation';
 
 
-function App() {
+function App() {  
+ 
   return (
     <div className="App">
-      <LoggedNav />
+      <Navigation />
 
     </div>
   );
