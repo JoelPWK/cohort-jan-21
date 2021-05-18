@@ -3,7 +3,8 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 // import "../App.css";
 import logo from "../logo.png";
 
-function LoggedNav(){
+function LoggedNav(props){
+  console.log(props.email)
 
     return (
       <div>
@@ -33,7 +34,7 @@ function LoggedNav(){
               </button>
     
     
-              <Nav.Link >Sign Out</Nav.Link>
+              <Nav.Link onClick={() => {props.logout()}}>Sign Out</Nav.Link>
               
             </Nav>
           </Navbar.Collapse>
