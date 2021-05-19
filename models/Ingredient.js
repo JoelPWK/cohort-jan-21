@@ -1,13 +1,13 @@
 const mongoose = require(`mongoose`);
 
 const ingredientSchema = mongoose.Schema({
-    name: { String, required: true },
-    calories: { Number, required: true },
-    fat: { Number, required: true },
-    saturatedFat: { Number, required: true },
-    carbs: { Number, required: true },
-    fibre: { Number, required: true },
-    salt: { Number, required: true },
+    name: { type: String, required: true },
+    calories: { type: Number, required: true },
+    fat: { type: Number, required: true },
+    saturatedFat: { type: Number, required: true },
+    carbs: { type: Number, required: true },
+    fibre: { type: Number, required: true },
+    salt: { type: Number, required: true },
 });
 
 module.exports.Ingredient = mongoose.model(`Ingredient`, ingredientSchema);
