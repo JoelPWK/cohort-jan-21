@@ -5,21 +5,6 @@ import logo from "../logo.png";
 
 function LoggedOutNav(props) {
   
-  
-//     const email = (event) => {
-//     props.setState({
-//       email: event.target.value,
-//     });
-//   };
-  
-//   const password = (event) => {
-//     setState({
-//       password: event.target.value,
-//     });
-//   };
-  
-  
-  
 
   return (
     <div>
@@ -36,7 +21,7 @@ function LoggedOutNav(props) {
             <input id='password' placeholder="Password" />
 
             <Nav.Link onClick={() => props.login()}>Log in</Nav.Link>
-            <Nav.Link>Register</Nav.Link>
+            <Nav.Link href='/register'>Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
