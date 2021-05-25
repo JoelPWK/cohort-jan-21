@@ -18,17 +18,17 @@ const Register = () => {
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         if (password1 !== password2) {
             setAlert({ ...alert, msg: 'Passwords do not match', type: 'alert-danger' });
         } else {
-            //register user in the database
+            //@to-do register user in the database
             setAlert({ ...alert, msg: 'User registered', type: 'alert-success' });
         }
     }
 
-    //get user's token and if token is authenticated redirect user to their dashboard
+    //@ to-do get user's token and if token is authenticated redirect user to their dashboard
 
     return (
         <Container className="text-center">
