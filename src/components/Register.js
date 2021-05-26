@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+//TODO:: Move the Bootstrap lib to App.js
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
@@ -58,7 +59,7 @@ const Register = () => {
                     {alert.msg}
                     </div>
                 ) : (
-                    <Fragment></Fragment>
+                    <Fragment />
                 )
                 }            
             </Fragment>
