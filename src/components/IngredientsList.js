@@ -1,7 +1,10 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
 const IngredientsList = () => {
+    // This is a table to show the users' list of ingredients. Currently mocked data.
+    // TODO: Run this for each entry in the ingredients database for the user and populate each row with each entry.
     const buildRows = () => {
         return (
             <tr key="0">
@@ -12,9 +15,10 @@ const IngredientsList = () => {
                 <td>1</td>
                 <td>1</td>
                 <td>1</td>
+                {/* TODO: Make these buttons do the specified actions */}
                 <td>
-                    <span>Update</span>
-                    <span>Remove</span>
+                    <Button>Update</Button>
+                    <Button>Remove</Button>
                 </td>
             </tr>
         );
