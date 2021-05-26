@@ -1,4 +1,4 @@
-import Register from "./components/Register";
+import Register from "./components/Auth/Register";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
