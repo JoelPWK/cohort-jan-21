@@ -1,10 +1,19 @@
 import Register from './components/Register'
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Navigation from './components/Navigation';
 
 function App() {
   return (
     <div className="App">
-      <Register />
+      <Navigation />
+      <Router>
+        <Switch>
+          <Route exact path='/register'>
+            <Register />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
