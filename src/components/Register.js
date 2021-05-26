@@ -21,13 +21,13 @@ const Register = () => {
     const { email, password1, password2 } = formData;
 
     //Set the state of the form data when user types in the input
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     //Creating an alert function to remove an alert after a set time, currently set at 5 sec
     const alertHandler = (msg, type, showing = true) => {
         setAlert({ ...alert, msg: msg, type: type, showing: showing })
         if (msg.length > 0) {
-            setTimeout(function(){alertHandler('', '', false)}, 5000)
+            setTimeout(() => {alertHandler('', '', false)}, 5000)
         }
     }
 
@@ -54,12 +54,9 @@ const Register = () => {
             {/* Check if there is an alert and show it, else return an empty fragment */}
             <Fragment>
                 {alert.showing === true ? (
-                    <div 
-                    id="alrt" 
-                    className={`alert ${alert.type}`}
-                >
-                {alert.msg}
-                </div>
+                    <div className={`inline-block w-50 mx-auto alert ${alert.type}`}>
+                    {alert.msg}
+                    </div>
                 ) : (
                     <Fragment></Fragment>
                 )
@@ -114,7 +111,7 @@ const Register = () => {
                     </div>
                 </div>
                 {/* Submit button */}
-                <Button className="mb-4" variant="primary" type='submit' value='Register'>Register</Button>
+                <Button className="mb-4" variant="primary" type='submit'>Register</Button>
             </form>
             {/* Informing user if they want their specific avatar */}
             <small className="text-muted">
