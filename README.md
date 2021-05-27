@@ -11,3 +11,7 @@ Used to encrypt passwords when sent to the database.
 
 A set of express.js middlewares that wraps validator.js validator and sanitizer functions.
 [Link to express validator documentation](https://express-validator.github.io/docs/)
+
+### dotenv
+
+To read data from a .env file (for our database)
