@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv")
 
 //initiate dotenv package to look through .env files
 dotenv.config();
@@ -16,5 +16,13 @@ app.get("/test", (req, res) => {
 });
 
 //mongoDB connection
+
+mongoose.connect(process.env.SERVER_CONNECTION,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, (err) =>{
+  if (err) return console.error(err);
+  console.log('Connected to our database on MongoDb!')
+})
 
 
