@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 // TODO: Import all page components here
+import Register from "../Register";
 
 const Routes = () => {
     return (
@@ -9,9 +10,9 @@ const Routes = () => {
             <Switch>
                 {/*TODO: Link routes up with their components */}
                 <Route exact path="/" />
-                <Route exact path="/register" />
+                <Route exact path="/register" component={Register} />
                 <Route exact path="/login" />
-                <PrivateRoute exact path="/dashboard" />
+                <PrivateRoute exact path="/dashboard" component={Register} />
                 <PrivateRoute exact path="/recipe/:id" />
                 <PrivateRoute exact path="/my-recipes" />
                 <PrivateRoute exact path="/create-recipe" />
@@ -21,7 +22,7 @@ const Routes = () => {
                 <PrivateRoute exact path="/edit-ingredient" />
 
                 {/*TODO: Add a 'NotFound' route and component:
-                <Route component={NotFound} */}
+                <Route component={NotFound} /> */}
             </Switch>
         </div>
     );
