@@ -27,7 +27,7 @@ router.route("/adduser").post((req, res) => {
         id: newUser._id
     };
 
-    
+    const token =jwt.sign()
     
     //saving in database
     newUser

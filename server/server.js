@@ -3,7 +3,9 @@ const app = express();
 const cors = require('cors');
 const mongoose = require ('mongoose');
 
-require("dotenv").config();
+
+require('dotenv').config({ path: '../.env' });
+
 
 //setting local port
 const port = process.env.PORT || 3001
