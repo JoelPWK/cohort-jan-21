@@ -45,9 +45,10 @@ const Register = () => {
                 email:formData.email,
                 password: formData.password1
             }
+            //adding data into the database
             await Axios.post("http://localhost:3001/register/adduser", registerData)
-            //TODO:: register user in the database
             alertHandler('User registered', 'alert-success')
+            //TODO:: clearing input fields
         }
     }
 
