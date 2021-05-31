@@ -3,6 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { check, validationResult } = require("express-validator");
 const jsonwebtoken = require("jsonwebtoken")
+require('dotenv').config({ path: '../.env' });
 
 
 //get a list of existing users
@@ -22,12 +23,14 @@ router.route("/adduser").post((req, res) => {
     });
     
     //JWT
-    
-    const jwtData = {
-        id: newUser._id
-    };
+    const token =jsonwebtoken.sign( 
+        {
+        id: newUser._id,
+    },
+     process.env.JWT_SECRET);
 
-    const token =jwt.sign()
+     //setting as a cookie
+     res.cookie("token",token)    
     
     //saving in database
     newUser
