@@ -1,95 +1,52 @@
-const express = require('express')
-const router = express.Router()
-const {User} = require ("../models/User")
+const express = require("express");
+const router = express.Router();
+const { User } = require("../models/User");
+const { check, validationResult } = require("express-validator");
+const jsonwebtoken = require("jsonwebtoken")
+
 
 //get a list of existing users
-router.route('/').get( async (req,res) => {
+router.route("/").get(async (req, res) => {
     User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err))
-})
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
-router.route('/adduser').post((req,res) => {
-    const {email, password} = req.body;
+//adding a new user
+router.route("/adduser").post((req, res) => {
+    const { email, password } = req.body;
     
-    const newUser= new User({
+    const newUser = new User({
         email: email,
-        password:password
+        password: password,
     });
+    
+    //JWT
+    
+    const jwtData = {
+        id: newUser._id
+    };
 
-    newUser.save()
-    .then(()=> res.json ('user added'))
-    .catch (err => res.status(400).json ('Error: ' + err))
-})
-
+    
+    
+    //saving in database
+    newUser
+    .save()
+    .then(() => res.json("user added"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;
 
-//
-// const express = require("express");
-// const router = express.Router();
-// const User = require("../models/User");
-// const { check, validationResult } = require('express-validator');
-
-
-// router.post(
-//   "/",
-// //   [
-// //     check("email", "Please include a valid email").isEmail(),
-// //     check("password", "Please enter a password with 6 or more characters").isLength({ min: 6 }),
-// //   ],
-
-//   async (req, res) => {
-//     // const errors = validationResult(req);
-//     // if (!errors.isEmpty()) {
-//     //     return res.status(400).json({ errors: errors.array() });
-//     // }
-//     const { email, password } = req.body;
-
-//     try {
-//         // const existingEmail = await User.findOne({email})
-//         // if (existingEmail) {
-//         // return res
-//         // .status(400)
-//         // .json({errors: "Email address already registered"})       
-//         // }
-//         const user = new User ({
-//             email: email,
-//             password: password
-//         })
-//         await user.save()
+//Get request for existing users
+// router.get("/users/:id", function (req,res) {
+//     User.findById(req.params.id)
+//     try {res
+//         .json({User})
 
 //     } catch (err) {
-//         console.error(
-//             // res.status(500)
-//             res.body
-//             )
+//         res
+//         .status(400)
+//         .json("error getting user list")
 //     }
-
-//   }
-// );
-
-
-// //         // To Do: encrypt the password
-
-// //         // Saving the user:
-
-// //         // const newUser = new User ({
-// //         //     email,
-// //         //     password
-// //         // })
-
-// //         // const savedUser = await newUser.save();
-
-// //         // res.send(savedUser)
-
-// //         //JWT TOKEN:
-
-// //     } catch (err) {
-// //         res
-// //         .status(500)
-// //         .send('error')
-// //     }
-// // })
-
-// module.exports = router;
+// });
