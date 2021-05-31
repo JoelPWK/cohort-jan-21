@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+import Axios from 'axios'
 //TODO:: Move the Bootstrap lib to App.js
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -40,6 +41,11 @@ const Register = () => {
             alertHandler('Passwords do not match', 'alert-danger')
         //if they match then save the user to database and display the alert             
         } else {
+            const registerData = {
+                email:formData.email,
+                password: formData.password1
+            }
+            await Axios.post("http://localhost:3001/register/adduser", registerData)
             //TODO:: register user in the database
             alertHandler('User registered', 'alert-success')
         }
