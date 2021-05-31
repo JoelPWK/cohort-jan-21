@@ -29,8 +29,8 @@ router.route("/adduser").post((req, res) => {
     },
      process.env.JWT_SECRET);
 
-     //setting as a cookie
-     res.cookie("token",token)    
+     //setting as a cookie - only accessible as http - stops javascript from reading the token
+     res.cookie("token",token, {httpOnly:true}).send()    
     
     //saving in database
     newUser
