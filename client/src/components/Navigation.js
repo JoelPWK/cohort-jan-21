@@ -2,7 +2,8 @@ import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
 
 function Navigation() {
   const [state, setState] = useState({
@@ -17,6 +18,7 @@ function Navigation() {
       email: document.getElementById("emailAdd").value,
       password: document.getElementById("password").value,
     });
+    
   };
 
   const toggleLogOut = () => {
@@ -25,7 +27,20 @@ function Navigation() {
     });
   };
 
+  useEffect(() => {
+    const loginData = {
+        email: state.email,
+        password: state.password
+    }
+      if (state.LoggedIn === true) {
+          console.log(`Logged in!`)
+        // Axios.post("https://localhost:3001/login", loginData)
+      }
+      console.log(loginData.email, loginData.password)
+  }, [state.LoggedIn])
+
   if (state.LoggedIn === true) {
+    
     return (
       <LoggedNav
         email={state.email}
