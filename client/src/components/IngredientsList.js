@@ -9,16 +9,16 @@ const IngredientsList = () => {
         return (
             <tr key="0">
                 <td>Apple</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1</td>
+                <td>95</td>
+                <td>0.3</td>
+                <td>0.1</td>
+                <td>25</td>
+                <td>4.4</td>
+                <td>0.0018</td>
                 {/* TODO: Make these buttons do the specified actions */}
                 <td>
-                    <Button>Update</Button>
-                    <Button>Remove</Button>
+                    <Button variant="secondary" className="mx-2">Update</Button>
+                    <Button variant="danger" className="mx-2">Remove</Button>
                 </td>
             </tr>
         );
@@ -30,12 +30,12 @@ const IngredientsList = () => {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Calories</th>
-                        <th>Fat</th>
-                        <th>Saturated Fat</th>
-                        <th>Carbs</th>
-                        <th>Fibre</th>
-                        <th>Salt</th>
+                        <th>Energy (cal)</th>
+                        <th>Fat (g)</th>
+                        <th>Saturated Fat (g)</th>
+                        <th>Carbs (g)</th>
+                        <th>Fibre (g)</th>
+                        <th>Salt (g)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

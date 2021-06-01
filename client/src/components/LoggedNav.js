@@ -18,7 +18,7 @@ function LoggedNav(props){
           <Navbar.Collapse>
             <Nav className="form-inline my-2 mx-auto">
               <Nav.Link>Create Recipe</Nav.Link>
-              <Nav.Link>Ingredients List</Nav.Link>
+              <Nav.Link href="/ingredients">Ingredients List</Nav.Link>
     
               <NavDropdown title="Recipes" className='mr-5'>
                 <NavDropdown.Item>My Recipes</NavDropdown.Item>
