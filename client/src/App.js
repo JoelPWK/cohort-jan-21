@@ -1,9 +1,10 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import Routes from "./components/Routing/Routes"
+import Navigation from "./components/Navigation/Navigation";
+import Routes from "./components/Routing/Routes";
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Router>
@@ -14,6 +15,6 @@ function App() {
             </Router>
         </div>
     );
-}
+};
 
 export default App;
