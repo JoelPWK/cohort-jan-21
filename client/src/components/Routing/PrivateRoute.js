@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+// TODO: Set up auth with database
+
 const PrivateRoute = ({
     component: Component,
     auth: { isAuthenticated },
@@ -11,11 +13,7 @@ const PrivateRoute = ({
     <Route
         {...rest}
         render={(props) =>
-            !isAuthenticated ? (
-                <Redirect to="/login" />
-            ) : (
-                <Component {...props} />
-            )
+            !isAuthenticated ? <Redirect to="/" /> : <Component {...props} />
         }
     />
 );
@@ -30,5 +28,6 @@ const mapStateToProps = () => ({
     auth: true,
 });
 
+// TODO: Remove redux and replace with useContext()
 // Using redux to connect the private routes with correct components through state mapping
 export default connect(mapStateToProps)(PrivateRoute);

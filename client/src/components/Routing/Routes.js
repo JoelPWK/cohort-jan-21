@@ -11,8 +11,7 @@ const Routes = () => {
                 {/*TODO: Link routes up with their components */}
                 <Route exact path="/" />
                 <Route exact path="/register" component={Register} />
-                <Route exact path="/login" />
-                <PrivateRoute exact path="/dashboard" component={Register} />
+                <PrivateRoute exact path="/dashboard" />
                 <PrivateRoute exact path="/recipe/:id" />
                 <PrivateRoute exact path="/my-recipes" />
                 <PrivateRoute exact path="/create-recipe" />
