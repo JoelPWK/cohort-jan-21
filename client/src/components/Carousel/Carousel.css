@@ -1,0 +1,17 @@
+.carouselContainer {
+    margin-top: 1rem;
+    background-image: linear-gradient(to right, rgb(2, 47, 65), rgb(83, 5, 5));
+}
+
+.carouselContainer h1 {
+    color: rgb(238, 234, 234);
+    text-align: center;
+}
+
+.carousel-item img {
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 5px;
+}
