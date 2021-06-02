@@ -11,7 +11,7 @@ const CarouselBootstrap = () => {
     return (
         //Placed the whole Carousel in a container to put some gradient background
         <div className='carouselContainer'>
-            <h1><i>Create and browse delicious recipes</i></h1>
+            <h2>Create and browse delicious recipes</h2>
             <Carousel fade>
                 <Carousel.Item>
                     <img
@@ -44,6 +44,7 @@ const CarouselBootstrap = () => {
                     />
                 </Carousel.Item>
             </Carousel>
+            <h2>Create and browse delicious recipes</h2>
         </div>
     )
 }

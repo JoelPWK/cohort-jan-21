@@ -1,17 +1,18 @@
 /* Tried to target only the tags inside the carousel component for the styling.
     I can add image captions once we agree on media queries the h1 tag isn't automatically 
-    responsive in bootstrap. I tend to convert 1rem to 10 px instead of having it at default
-    at 10px
+    responsive in bootstrap. I tend to convert 1rem to 10px instead of having it at default
+    at 16px
 */
 
 .carouselContainer {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     background-image: linear-gradient(to right, rgb(2, 47, 65), rgb(83, 5, 5));
 }
 
-.carouselContainer h1 {
-    color: rgb(238, 234, 234);
+.carouselContainer h2 {
+    color: rgb(8, 8, 8, 0);
     text-align: center;
+    margin-bottom: 0;
 }
 
 .carousel-item img {
