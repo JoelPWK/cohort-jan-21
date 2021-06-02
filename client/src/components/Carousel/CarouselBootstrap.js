@@ -1,6 +1,4 @@
 import React from 'react'
-// TODO::remove the bootstrap css from here and put it once in App.js
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './Carousel.css'
 import Carousel from 'react-bootstrap/Carousel'
 import image1 from '../../Images/food1.jpg'
