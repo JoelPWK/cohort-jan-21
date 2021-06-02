@@ -10,7 +10,7 @@ function LoggedNav(props){
       <div>
         <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
           <Navbar.Brand>
-            <img src={logo} height="75vh" alt="logo" className="pr-3" />
+            <img src={logo} height="75vh" alt="logo" className="pr-3" href='/home'/>
             Recipe Book
           </Navbar.Brand>
     
