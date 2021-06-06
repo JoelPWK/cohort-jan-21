@@ -1,21 +1,20 @@
-import Register from "./components/Register";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation/Navigation";
+import Routes from "./components/Routing/Routes";
 
-function App() {
+const App = () => {
     return (
         <div className="App">
-            <Navigation />
             <Router>
+                <Navigation />
                 <Switch>
-                    <Route exact path="/register">
-                        <Register />
-                    </Route>
+                    <Route component={Routes} />
                 </Switch>
             </Router>
         </div>
     );
-}
+};
 
 export default App;
