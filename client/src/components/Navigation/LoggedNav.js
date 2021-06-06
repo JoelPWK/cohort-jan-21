@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import logo from "../../Images/logo.png";
 
-function LoggedNav(props) {
+const LoggedNav = (props) => {
     console.log(props.email);
 
     return (
@@ -56,6 +56,6 @@ function LoggedNav(props) {
             </Navbar>
         </div>
     );
-}
+};
 
 export default LoggedNav;

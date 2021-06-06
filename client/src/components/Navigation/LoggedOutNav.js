@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import logo from "../../Images/logo.png";
 
-function LoggedOutNav(props) {
+const LoggedOutNav = (props) => {
     return (
         <div>
             <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
@@ -18,8 +18,15 @@ function LoggedOutNav(props) {
                             id="emailAdd"
                             className="mr-2"
                             placeholder="Email Address"
+                            onChange={(event) => props.onChange(event)}
+                            value={props.email}
                         />
-                        <input id="password" placeholder="Password" />
+                        <input
+                            id="password"
+                            placeholder="Password"
+                            onChange={(event) => props.onChange(event)}
+                            value={props.password}
+                        />
 
                         <Nav.Link onClick={() => props.login()}>
                             Log in
@@ -30,6 +37,6 @@ function LoggedOutNav(props) {
             </Navbar>
         </div>
     );
-}
+};
 
 export default LoggedOutNav;

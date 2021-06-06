@@ -1,56 +1,60 @@
-import React, { Fragment, useState } from 'react'
-import Container from 'react-bootstrap/Container'
-import Button from 'react-bootstrap/Button'
-import Axios from 'axios'
-//TODO:: Move the Bootstrap lib to App.js
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Fragment, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import Axios from "axios";
 
 const Register = () => {
     //Initial state of form data
     const [formData, setFormData] = useState({
-        email: '',
-        password1: '',
-        password2: ''
-    })
+        email: "",
+        password1: "",
+        password2: "",
+    });
     //Initial state of alert
     const [alert, setAlert] = useState({
-        msg: '',
-        type: '',
-        showing: false
-    })
+        msg: "",
+        type: "",
+        showing: false,
+    });
 
     //Deconstructing the form data for ease of use
     const { email, password1, password2 } = formData;
 
     //Set the state of the form data when user types in the input
-    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
     //Creating an alert function to remove an alert after a set time, currently set at 5 sec
     const alertHandler = (msg, type, showing = true) => {
-        setAlert({ ...alert, msg: msg, type: type, showing: showing })
+        setAlert({ ...alert, msg: msg, type: type, showing: showing });
         if (msg.length > 0) {
-            setTimeout(() => {alertHandler('', '', false)}, 5000)
+            setTimeout(() => {
+                alertHandler("", "", false);
+            }, 5000);
         }
-    }
+    };
 
-    //Registration button used async cause it will send an API request 
+    //Registration button used async cause it will send an API request
     const onSubmit = async (e) => {
         e.preventDefault();
         //Check if both passwords match and display alert
         if (password1 !== password2) {
-            alertHandler('Passwords do not match', 'alert-danger')
-        //if they match then save the user to database and display the alert             
+            alertHandler("Passwords do not match", "alert-danger");
+            //if they match then save the user to database and display the alert
         } else {
             const registerData = {
-                email:formData.email,
-                password: formData.password1
-            }
+                email: formData.email,
+                password: formData.password1,
+            };
             //adding data into the database
-            await Axios.post("http://localhost:3001/register/adduser", registerData)
-            alertHandler('User registered', 'alert-success')
+            await Axios.post(
+                "http://localhost:3001/register/adduser",
+                registerData
+            );
+            alertHandler("User registered", "alert-success");
             //TODO:: clearing input fields
         }
-    }
+    };
 
     //TODO:: get user's token and if token is authenticated redirect user to their dashboard
 
@@ -58,19 +62,22 @@ const Register = () => {
         //Used only Bootstrap CSS classes and the icon from fontawesome
         <Container className="text-center">
             <h1>Sign Up</h1>
-            <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
+            <p className="lead">
+                <i className="fas fa-user"></i> Create Your Account
+            </p>
             {/* Check if there is an alert and show it, else return an empty fragment */}
             <Fragment>
                 {alert.showing === true ? (
-                    <div className={`inline-block w-50 mx-auto alert ${alert.type}`}>
-                    {alert.msg}
+                    <div
+                        className={`inline-block w-50 mx-auto alert ${alert.type}`}
+                    >
+                        {alert.msg}
                     </div>
                 ) : (
                     <Fragment />
-                )
-                }            
+                )}
             </Fragment>
-            <form onSubmit={e => onSubmit(e)}>
+            <form onSubmit={(e) => onSubmit(e)}>
                 {/* Email address input */}
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Email</label>
@@ -81,7 +88,7 @@ const Register = () => {
                             placeholder="Email Address"
                             name="email"
                             value={email}
-                            onChange={e => onChange(e)}
+                            onChange={(e) => onChange(e)}
                             required
                         />
                     </div>
@@ -97,14 +104,16 @@ const Register = () => {
                             name="password1"
                             minLength="6"
                             value={password1}
-                            onChange={e => onChange(e)}
+                            onChange={(e) => onChange(e)}
                             required
                         />
                     </div>
                 </div>
                 {/* Re-enter password input */}
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Confirm Password</label>
+                    <label className="col-sm-2 col-form-label">
+                        Confirm Password
+                    </label>
                     <div className="col-sm-10">
                         <input
                             className="form-control"
@@ -113,13 +122,15 @@ const Register = () => {
                             name="password2"
                             minLength="6"
                             value={password2}
-                            onChange={e => onChange(e)}
+                            onChange={(e) => onChange(e)}
                             required
                         />
                     </div>
                 </div>
                 {/* Submit button */}
-                <Button className="mb-4" variant="primary" type='submit'>Register</Button>
+                <Button className="mb-4" variant="primary" type="submit">
+                    Register
+                </Button>
             </form>
             {/* Informing user if they want their specific avatar */}
             <small className="text-muted">
@@ -127,7 +138,7 @@ const Register = () => {
                 Gravatar email
             </small>
         </Container>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;
