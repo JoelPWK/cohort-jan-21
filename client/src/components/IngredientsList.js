@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
@@ -30,7 +30,7 @@ const IngredientsList = () => {
     };
 
     return (
-        <div>
+        <Fragment>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -47,7 +47,7 @@ const IngredientsList = () => {
                 </thead>
                 <tbody>{buildRows()}</tbody>
             </Table>
-        </div>
+        </Fragment>
     );
 };
 

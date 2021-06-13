@@ -48,7 +48,7 @@ const Register = () => {
             };
             //adding data into the database
             await Axios.post(
-                "http://localhost:3001/register/adduser",
+                "http://localhost:3001/users/add-user",
                 registerData
             );
             alertHandler("User registered", "alert-success");

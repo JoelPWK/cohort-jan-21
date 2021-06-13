@@ -1,58 +1,95 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
+import { Navbar } from "react-bootstrap";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
+import logo from "../../Images/logo.png";
 
-const Navigation = () => {
-    const [loginData, setLoginData] = useState({
-        LoggedIn: false,
-        email: "",
-        password: "",
+const Navigation = (props) => {
+    const [loginRequest, setLoginRequest] = useState();
+    const [alert, setAlert] = useState({
+        msg: ``,
+        type: ``,
+        showing: false,
     });
 
-    const { email, password } = loginData;
+    const alertHandler = (msg, type, showing = true) => {
+        setAlert({ ...alert, msg: msg, type: type, showing: showing });
+        if (msg.length > 0) {
+            setTimeout(() => {
+                alertHandler(``, ``, false);
+            }, 5000);
+        }
+    };
 
-    const onChange = (e) => {
-        setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    const changeLoginData = (e) => {
+        setLoginRequest({
+            ...loginRequest,
+            [e.target.name]: e.target.value,
+        });
     };
 
     const toggleLogIn = async (e) => {
-        setLoginData({
-            LoggedIn: true,
-            email: document.getElementById("emailAdd").value,
-            password: document.getElementById("password").value,
-        });
-        const userData = {
-            email: loginData.email,
-            password: loginData.password,
-        };
-        await Axios.get("http://localhost:3001/", userData);
+        e.preventDefault();
+        if (loginRequest.email && loginRequest.password) {
+            try {
+                await Axios.post(
+                    `http://localhost:3001/users/login`,
+                    loginRequest
+                ).then((response) => {
+                    if (response.data) {
+                        props.setLoginData({
+                            loggedIn: true,
+                            userId: response.data,
+                        });
+                        setLoginRequest();
+                    } else {
+                        alertHandler(
+                            `Invalid login credentials`,
+                            `alert-danger`
+                        );
+                    }
+                });
+            } catch {
+                alertHandler(`Invalid login credentials`, `alert-danger`);
+            }
+        }
     };
 
     const toggleLogOut = () => {
-        setLoginData({
-            LoggedIn: false,
+        props.setLoginData({
+            loggedIn: false,
         });
     };
 
-    if (loginData.LoggedIn === true) {
-        return (
-            <LoggedNav
-                email={loginData.email}
-                password={loginData.password}
-                logout={toggleLogOut}
-            />
-        );
-    } else {
-        return (
-            <LoggedOutNav
-                email={loginData.email}
-                password={loginData.password}
-                login={toggleLogIn}
-                onChange={(e) => onChange(e)}
-            />
-        );
-    }
+    return (
+        <Fragment>
+            <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
+                <Navbar.Brand href="/">
+                    <img src={logo} height="75vh" alt="logo" className="pr-3" />
+                    Recipe Book
+                </Navbar.Brand>
+                <Navbar.Toggle />
+                {props.loginData.loggedIn ? (
+                    <LoggedNav logout={toggleLogOut} />
+                ) : (
+                    <LoggedOutNav
+                        login={(e) => toggleLogIn(e)}
+                        changeLoginData={(e) => changeLoginData(e)}
+                    />
+                )}
+            </Navbar>
+            {alert.showing ? (
+                <div
+                    className={`inline-block w-50 mx-auto alert ${alert.type}`}
+                >
+                    {alert.msg}
+                </div>
+            ) : (
+                <Fragment />
+            )}
+        </Fragment>
+    );
 };
 
 export default Navigation;

@@ -1,41 +1,34 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Nav, Navbar } from "react-bootstrap";
-import logo from "../../Images/logo.png";
 
 const LoggedOutNav = (props) => {
     return (
-        <div>
-            <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
-                <Navbar.Brand>
-                    <img src={logo} height="75vh" alt="logo" className="pr-3" />
-                    Recipe Book
-                </Navbar.Brand>
-
-                <Navbar.Toggle />
-                <Navbar.Collapse>
-                    <Nav className="inline mx-auto">
+        <Fragment>
+            <Navbar.Collapse>
+                <Nav className="inline mx-auto">
+                    <form className="form" onSubmit={(e) => props.login(e)}>
                         <input
                             id="emailAdd"
                             className="mr-2"
                             placeholder="Email Address"
-                            onChange={(event) => props.onChange(event)}
-                            value={props.email}
+                            name="email"
+                            onChange={(e) => props.changeLoginData(e)}
+                            required
                         />
                         <input
                             id="password"
                             placeholder="Password"
-                            onChange={(event) => props.onChange(event)}
-                            value={props.password}
+                            name="password"
+                            onChange={(e) => props.changeLoginData(e)}
+                            required
                         />
 
-                        <Nav.Link onClick={() => props.login()}>
-                            Log in
-                        </Nav.Link>
-                        <Nav.Link href="/register">Register</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </div>
+                        <input type="submit" value="Log In" />
+                    </form>
+                    <Nav.Link href="/register">Register</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Fragment>
     );
 };
 

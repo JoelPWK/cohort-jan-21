@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 // TODO: Import all page components here
@@ -10,7 +10,7 @@ import Dashboard from "../Pages/Dashboard";
 
 const Routes = () => {
     return (
-        <div>
+        <Fragment>
             <Switch>
                 {/*TODO: Link routes up with their components */}
                 <Route exact path="/" component={CarouselBootstrap} />
@@ -35,7 +35,7 @@ const Routes = () => {
                 {/*TODO: Add a 'NotFound' route and component:
                 <Route component={NotFound} /> */}
             </Switch>
-        </div>
+        </Fragment>
     );
 };
 
