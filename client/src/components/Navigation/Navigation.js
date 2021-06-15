@@ -4,6 +4,7 @@ import { Navbar } from "react-bootstrap";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
 import logo from "../../Images/logo.png";
+import "./Navigation.css";
 
 const Navigation = (props) => {
     const [loginRequest, setLoginRequest] = useState();
