@@ -64,7 +64,7 @@ const Navigation = (props) => {
     };
 
     return (
-        <Fragment>
+        <div className="navbar-area">
             <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
                 <Navbar.Brand href="/">
                     <img src={logo} height="75vh" alt="logo" className="pr-3" />
@@ -82,14 +82,14 @@ const Navigation = (props) => {
             </Navbar>
             {alert.showing ? (
                 <div
-                    className={`inline-block w-50 mx-auto alert ${alert.type}`}
+                    className={`inline-block mb-4 w-50 mx-auto alert ${alert.type}`}
                 >
                     {alert.msg}
                 </div>
             ) : (
                 <Fragment />
             )}
-        </Fragment>
+        </div>
     );
 };
 
