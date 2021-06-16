@@ -66,7 +66,9 @@ const Navigation = (props) => {
     return (
         <div className="navbar-area">
             <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
-                <Navbar.Brand href="/">
+                <Navbar.Brand
+                    href={props.loginData.loggedIn ? "/dashboard" : "/"}
+                >
                     <img src={logo} height="75vh" alt="logo" className="pr-3" />
                     Recipe Book
                 </Navbar.Brand>

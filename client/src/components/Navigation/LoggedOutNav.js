@@ -16,6 +16,7 @@ const LoggedOutNav = (props) => {
                             className="mx-2"
                             placeholder="Email Address"
                             name="email"
+                            type="email"
                             onChange={(e) => props.changeLoginData(e)}
                             required
                         />
@@ -24,6 +25,7 @@ const LoggedOutNav = (props) => {
                             placeholder="Password"
                             name="password"
                             className="mx-2"
+                            type="password"
                             onChange={(e) => props.changeLoginData(e)}
                             required
                         />
