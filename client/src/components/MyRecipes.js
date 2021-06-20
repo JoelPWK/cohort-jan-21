@@ -56,8 +56,12 @@ const MyRecipes = (props) => {
 
   return (
     <>
+        <Grid container direction='column'>
       {recipeData.map((recipeData) => {
         return (
+            <Grid item container xs={0} sm={12} md={6}>
+
+
           <Card className={classes.card}>
               <CardActionArea onClick={() => {alert('clicked')}}>
             <CardContent>
@@ -76,8 +80,10 @@ const MyRecipes = (props) => {
             </CardContent>
               </CardActionArea>
           </Card>
+                </Grid>
         );
       })}
+      </Grid>
     </>
   );
 };

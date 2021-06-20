@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card, CardColumns } from "react-bootstrap";
+import { Button, Modal} from "react-bootstrap";
 import { BiUpArrowCircle } from 'react-icons/bi'
 import { BiDownArrowCircle } from 'react-icons/bi'
 
 const RecipeCard = (props) => {
+  //fake data
   const [recipeData, setRecipieData] = useState([
     {
       name: "chicken",
@@ -31,62 +32,64 @@ const RecipeCard = (props) => {
     },
   ]);
 
+  //modal launch
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+
+  
+
   return (
     <div className='cardContainer'>
       {recipeData.map((recipeData) => {
         return (
           <>
-            <div className="card">
-                <h1>{recipeData.name}</h1>
-              <img src={recipeData.photo} alt="Food Image" />
-              <div className="cardContent">
-                <div className="author">
-                  <img src={recipeData.user} />
-                  <div className="name">{recipeData.author}</div>
-                </div>
-                <p>{recipeData.instructions}</p>
-              </div>
+          <div className='card' onClick={handleShow}>
+            <div className='card-body>'>
+            <div className='card-header'>
+              <h2>{recipeData.name}</h2>
+              <img src={recipeData.user} className='userImg'/>
 
-              <div className="footer">
-                
-                <div className="stats">
-                  <img
-                    className="upvote"
-                    src={BiUpArrowCircle}
-                    onClick={console.log('up voted')}
-                    alt="Upvote"
-                    />
-                  <img
-                    className="downvote"
-                    src={BiDownArrowCircle}
-                    onClick={console.log('down voted')}
-                    alt="down"
-                  />
-                  <div className="stat">{recipeData.likes}</div>
-                </div>
-              </div>
+            </div>
+              <img className='foodImg' src={recipeData.photo} alt='recipe photo'/>
+              <p>{recipeData.instructions}</p>
+            </div>
+            <div>
+            {BiUpArrowCircle}
+            {BiDownArrowCircle}
+            <button className='cardBtn' > save recipe</button>
             </div>
 
-            {/* <div style={{width:900, marginTop: 20}}>
 
-          <CardColumns>
+          </div>
+{/* modal - stays hidden until card clicked */}
+          <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Recipe Title: {recipeData.name}
+            <br />
+            Recipe created by: {recipeData.author}
+          </Modal.Title>
+        </Modal.Header>
+        <img src={recipeData.photo} alt='food image' width='200' className='modalImg'></img>
+        <Modal.Body>
+          Instructions: <br />
+          {recipeData.instructions}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
 
-            <Card className="recipe cards" style={{ width: "18rem" }}>
-              <Card.Title>{recipeData.name}</Card.Title>
-              <Card.Subtitle>{recipeData.author}</Card.Subtitle>
-              <img className='userimg' src={recipeData.user} alt='user image'></img>
-              <Card.Img variant="top" src={recipeData.photo} className="p-2" />
-              <Card.Body>
-                <Card.Text>{recipeData.instructions}</Card.Text>
-                <Card.Text>Likes: {recipeData.likes}</Card.Text>
-                <Card.Link> See full recipe </Card.Link>
-                <Button variant="primary">Like</Button>
-              </Card.Body>
-            </Card>
+        </Modal.Footer>
+      </Modal>
 
-          </CardColumns>
+          
 
-          </div> */}
           </>
         );
       })}

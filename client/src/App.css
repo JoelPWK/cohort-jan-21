@@ -1,16 +1,41 @@
 .bg-nav{
   background-color: #E1F2FB;
 }
-.userimg {
+.userImg {
   border-radius: 50%;
+  height: 50px;
+}
+.card-header{
+  display: flex;
+  justify-content: space-between;
+
 }
 .cardContainer {
-  display: flex;
-  justify-content: center;
+  display: grid;
+grid-template-columns: repeat(auto-fit, minmax(12rem,16rem));
+gap: 2rem;
+justify-content: center;
 }
 
 .card {
-  margin: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px #E1F2FB;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+  background-color: #E1F2FB;
   
+}
+.card:hover{
+  transform: scale(1.02);
+  }
+
+.foodImg {
+
+  width: 100%;
+  padding: 20px;
+  border-radius: 25%;
 
 }
