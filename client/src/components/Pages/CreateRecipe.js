@@ -83,21 +83,23 @@ const CreateRecipe = () => {
               />
             </div>
           </div>
-          {/* Tools input */}
+
+          {/* Tools field */}
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Tools used</label>
+            <label className="col-sm-2 col-form-label">Tools Used</label>
             <div className="col-sm-10">
-              <input
+              <textarea
                 className="form-control"
                 type="text"
-                placeholder="Tell us about the tools you used(*seperate with a comma)"
-                name="toolsUsed"
+                placeholder="List the tools used here (*seperate with a comma)"
+                name="tools"
                 value={tools}
                 onChange={(e) => onChange(e)}
                 required
               />
             </div>
           </div>
+
           {/* Instructions field */}
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">
@@ -110,6 +112,24 @@ const CreateRecipe = () => {
                 placeholder="Tell us how you made your dish"
                 name="instructions"
                 value={instructions}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </div>
+          </div>
+
+          {/* Time input */}
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">
+              Estimated time to make
+            </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Let us know how long your recipe will take (in minutes)"
+                name="toolsUsed"
+                value={estimatedTime}
                 onChange={(e) => onChange(e)}
                 required
               />
