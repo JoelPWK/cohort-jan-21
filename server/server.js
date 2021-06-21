@@ -13,9 +13,14 @@ app.use(express.json());
 
 
 //obtaining routes
+
+//userRoutes
 const userRoutes = require('./routes/userRoutes')
+//recipeRoute
+const recipeRoutes = require('./routes/recipeRoutes')
 
 app.use('/register', userRoutes)
+app.use('/recipe',recipeRoutes)
 
 //mongoatlas connection string
 const uri= process.env.CONNECTIONSTRING

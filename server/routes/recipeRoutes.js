@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 require("dotenv").config({ path: "./config/.env" });
 
 //get a list of existing recipes
-router.route("/recipes").get(async (req, res) => {
+router.route("/").get(async (req, res) => {
     User.find()
         .then((recipes) => res.json(recipes))
         .catch((err) => res.status(400).json("Error: " + err));
@@ -13,11 +13,16 @@ router.route("/recipes").get(async (req, res) => {
 
 //adding a new recipe
 router.route("/addRecipe").post((req, res) => {
-    const { name, instructions } = req.body;
+    const {author, ingredients, name, instructions, tools, likes, estimatedTime  } = req.body;
 
     const newRecipe = new Recipe({
+        author:author,
+        ingredients:ingredients,
         name: name,
         instructions: instructions,
+        tools:tools,
+        likes:likes,
+        estimatedTime:estimatedTime
     });
 
 
