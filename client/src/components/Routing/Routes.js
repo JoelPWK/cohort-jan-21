@@ -7,6 +7,7 @@ import CarouselBootstrap from "../Carousel/CarouselBootstrap";
 import CreateRecipe from "../Pages/CreateRecipe";
 import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
+import NotFound from "../Pages/NotFound";
 
 const Routes = () => {
     return (
@@ -31,9 +32,7 @@ const Routes = () => {
                 />
                 <PrivateRoute exact path="/add-ingredient" />
                 <PrivateRoute exact path="/edit-ingredient" />
-
-                {/*TODO: Add a 'NotFound' route and component:
-                <Route component={NotFound} /> */}
+                <Route component={NotFound} />
             </Switch>
         </Fragment>
     );
