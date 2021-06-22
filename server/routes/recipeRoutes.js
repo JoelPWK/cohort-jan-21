@@ -5,9 +5,11 @@ const { check, validationResult } = require("express-validator");
 require("dotenv").config({ path: "./config/.env" });
 
 //get a list of existing recipes
-router.get('/'), (req, res)=> {
-    res.send
-}
+router.route("/").get(async (req, res) => {
+    Recipe.find()
+        .then((recipes) => res.json(recipes))
+        .catch((err) => res.status(400).json(`Error: ${err}`));
+});
 
 //adding a new recipe
 router.route("/add-recipe").post((req, res) => {
