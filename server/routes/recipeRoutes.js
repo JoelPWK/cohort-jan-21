@@ -10,7 +10,7 @@ router.get('/'), (req, res)=> {
 }
 
 //adding a new recipe
-router.route("/addRecipe").post((req, res) => {
+router.route("/add-recipe").post((req, res) => {
     const { ingredients, name, instructions, tools, estimatedTime  } = req.body;
 
     const newRecipe = new Recipe({

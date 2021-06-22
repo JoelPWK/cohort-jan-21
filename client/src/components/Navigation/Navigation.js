@@ -1,46 +1,98 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import Axios from "axios";
+import React, { useState, Fragment } from "react";
+import { Navbar } from "react-bootstrap";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
-import React, { useState } from "react";
+import logo from "../../Images/logo.png";
+import "./Navigation.css";
 
-function Navigation() {
-    const [state, setState] = useState({
-        LoggedIn: false,
-        email: "",
-        password: "",
+const Navigation = (props) => {
+    const [loginRequest, setLoginRequest] = useState();
+    const [alert, setAlert] = useState({
+        msg: ``,
+        type: ``,
+        showing: false,
     });
 
-    const toggleLogIn = () => {
-        setState({
-            LoggedIn: true,
-            email: document.getElementById("emailAdd").value,
-            password: document.getElementById("password").value,
+    const alertHandler = (msg, type, showing = true) => {
+        setAlert({ ...alert, msg: msg, type: type, showing: showing });
+        if (msg.length > 0) {
+            setTimeout(() => {
+                alertHandler(``, ``, false);
+            }, 5000);
+        }
+    };
+
+    const changeLoginData = (e) => {
+        setLoginRequest({
+            ...loginRequest,
+            [e.target.name]: e.target.value,
         });
+    };
+
+    const toggleLogIn = async (e) => {
+        e.preventDefault();
+        if (loginRequest.email && loginRequest.password) {
+            try {
+                await Axios.post(
+                    `http://localhost:3001/users/login`,
+                    loginRequest
+                ).then((response) => {
+                    if (response.data) {
+                        props.setLoginData({
+                            loggedIn: true,
+                            userId: response.data,
+                        });
+                        setLoginRequest();
+                    } else {
+                        alertHandler(
+                            `Invalid login credentials`,
+                            `alert-danger`
+                        );
+                    }
+                });
+            } catch {
+                alertHandler(`Invalid login credentials`, `alert-danger`);
+            }
+        }
     };
 
     const toggleLogOut = () => {
-        setState({
-            LoggedIn: false,
+        props.setLoginData({
+            loggedIn: false,
         });
     };
 
-    if (state.LoggedIn === true) {
-        return (
-            <LoggedNav
-                email={state.email}
-                password={state.password}
-                logout={toggleLogOut}
-            />
-        );
-    } else {
-        return (
-            <LoggedOutNav
-                email={state.email}
-                password={state.password}
-                login={toggleLogIn}
-            />
-        );
-    }
-}
+    return (
+        <div className="navbar-area">
+            <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
+                <Navbar.Brand
+                    href={props.loginData.loggedIn ? "/dashboard" : "/"}
+                >
+                    <img src={logo} height="75vh" alt="logo" className="pr-3" />
+                    Recipe Book
+                </Navbar.Brand>
+                <Navbar.Toggle />
+                {props.loginData.loggedIn ? (
+                    <LoggedNav logout={toggleLogOut} />
+                ) : (
+                    <LoggedOutNav
+                        login={(e) => toggleLogIn(e)}
+                        changeLoginData={(e) => changeLoginData(e)}
+                    />
+                )}
+            </Navbar>
+            {alert.showing ? (
+                <div
+                    className={`inline-block mb-4 w-50 mx-auto alert ${alert.type}`}
+                >
+                    {alert.msg}
+                </div>
+            ) : (
+                <Fragment />
+            )}
+        </div>
+    );
+};
 
 export default Navigation;

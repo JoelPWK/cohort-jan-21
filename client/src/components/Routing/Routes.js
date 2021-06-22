@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 // TODO: Import all page components here
@@ -7,10 +7,11 @@ import CarouselBootstrap from "../Carousel/CarouselBootstrap";
 import CreateRecipe from "../Pages/CreateRecipe";
 import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
+import NotFound from "../Pages/NotFound";
 
 const Routes = () => {
     return (
-        <div>
+        <Fragment>
             <Switch>
                 {/*TODO: Link routes up with their components */}
                 <Route exact path="/" component={CarouselBootstrap} />
@@ -31,11 +32,9 @@ const Routes = () => {
                 />
                 <PrivateRoute exact path="/add-ingredient" />
                 <PrivateRoute exact path="/edit-ingredient" />
-
-                {/*TODO: Add a 'NotFound' route and component:
-                <Route component={NotFound} /> */}
+                <Route component={NotFound} />
             </Switch>
-        </div>
+        </Fragment>
     );
 };
 

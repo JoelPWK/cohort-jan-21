@@ -19,7 +19,7 @@ const userRoutes = require('./routes/userRoutes')
 //recipeRoute
 const recipeRoutes = require('./routes/recipeRoutes')
 
-app.use('/register', userRoutes)
+app.use('/users', userRoutes)
 app.use('/recipe',recipeRoutes)
 
 //mongoatlas connection string

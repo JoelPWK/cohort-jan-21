@@ -2,8 +2,6 @@ import React, { Fragment, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-//TODO:: Move the Bootstrap lib to App.js
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const CreateRecipe = () => {
   const [formData, setFormData] = useState({
@@ -47,7 +45,7 @@ const CreateRecipe = () => {
         estimatedTime: estimatedTime,
       }
 
-        await Axios.post("http://localhost:3001/recipe/addRecipe", recipeData)
+        await Axios.post("http://localhost:3001/recipe/add-recipe", recipeData)
         alertHandler('Recipe created', 'alert-success')
 
     }
