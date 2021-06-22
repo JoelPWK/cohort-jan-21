@@ -35,6 +35,23 @@ const CreateRecipe = () => {
     }
   };
 
+  //Registration button used async cause it will send an API request 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+         
+    const recipeData = {
+        name: name,
+        ingredients: ingredients,
+        instructions: instructions,
+        tools: tools,
+        estimatedTime: estimatedTime,
+      }
+
+        await Axios.post("http://localhost:3001/recipe/addRecipe", recipeData)
+        alertHandler('Recipe created', 'alert-success')
+
+    }
+
   return (
     <>
       <Container className="text-center">
@@ -51,7 +68,7 @@ const CreateRecipe = () => {
           )}
         </Fragment>
 
-        <form>
+        <form onSubmit={e => onSubmit(e)}>
           {/* Recipe Name input */}
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Recipe Name</label>
@@ -60,7 +77,7 @@ const CreateRecipe = () => {
                 className="form-control"
                 type="text"
                 placeholder="Give your recipe a title..."
-                name="recipeName"
+                name="name"
                 value={name}
                 onChange={(e) => onChange(e)}
                 required
@@ -128,7 +145,7 @@ const CreateRecipe = () => {
                 className="form-control"
                 type="text"
                 placeholder="Let us know how long your recipe will take (in minutes)"
-                name="toolsUsed"
+                name="estimatedTime"
                 value={estimatedTime}
                 onChange={(e) => onChange(e)}
                 required

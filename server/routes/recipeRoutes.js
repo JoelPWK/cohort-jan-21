@@ -11,15 +11,15 @@ router.get('/'), (req, res)=> {
 
 //adding a new recipe
 router.route("/addRecipe").post((req, res) => {
-    const {author, ingredients, name, instructions, tools, likes, estimatedTime  } = req.body;
+    const { ingredients, name, instructions, tools, estimatedTime  } = req.body;
 
     const newRecipe = new Recipe({
-        author:author,
+        // author:author,
         ingredients:ingredients,
         name: name,
         instructions: instructions,
         tools:tools,
-        likes:likes,
+        // likes:likes,
         estimatedTime:estimatedTime
     });
 
