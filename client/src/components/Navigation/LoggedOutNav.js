@@ -1,35 +1,47 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Nav, Navbar } from "react-bootstrap";
-import logo from "../../Images/logo.png";
+import "./LoggedOutNav.css";
 
-function LoggedOutNav(props) {
+const LoggedOutNav = (props) => {
     return (
-        <div>
-            <Navbar bg="nav" variant="light" expand="lg" collapseOnSelect>
-                <Navbar.Brand>
-                    <img src={logo} height="75vh" alt="logo" className="pr-3" />
-                    Recipe Book
-                </Navbar.Brand>
-
-                <Navbar.Toggle />
-                <Navbar.Collapse>
-                    <Nav className="inline mx-auto">
+        <Fragment>
+            <Navbar.Collapse>
+                <Nav className="inline mx-auto">
+                    <form
+                        className="form mt-1"
+                        onSubmit={(e) => props.login(e)}
+                    >
                         <input
                             id="emailAdd"
-                            className="mr-2"
+                            className="mx-2"
                             placeholder="Email Address"
+                            name="email"
+                            type="email"
+                            onChange={(e) => props.changeLoginData(e)}
+                            required
                         />
-                        <input id="password" placeholder="Password" />
-
-                        <Nav.Link onClick={() => props.login()}>
-                            Log in
-                        </Nav.Link>
-                        <Nav.Link href="/register">Register</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-        </div>
+                        <input
+                            id="password"
+                            placeholder="Password"
+                            name="password"
+                            className="mx-2"
+                            type="password"
+                            onChange={(e) => props.changeLoginData(e)}
+                            required
+                        />
+                        <input
+                            type="submit"
+                            value="Log In"
+                            className="form-button mx-2"
+                        />
+                    </form>
+                    <Nav.Link href="/register" className="form-button mx-2">
+                        Register
+                    </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Fragment>
     );
-}
+};
 
 export default LoggedOutNav;
