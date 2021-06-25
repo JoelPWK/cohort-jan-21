@@ -43,8 +43,17 @@ const RecipeCard = (props) => {
   const handleShow = () => setShow(true);
 
 //actual data
+const [recipes,getRecipes] = useState("");
 
-const url = 
+const url = process.env.CONNECTIONSTRING;
+
+const getAllRecipes = () => {
+  axios.get(`{url}`)
+  .then((response) => {
+    const allRecipes = response.data.recipes.allRecipes
+  })
+  .catch(error => console.error(`error:${error}`))
+}
 
   return (
     <div className='cardContainer'>
