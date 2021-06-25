@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Button, Modal} from "react-bootstrap";
-import { BiUpArrowCircle } from 'react-icons/bi'
-import { BiDownArrowCircle } from 'react-icons/bi'
+import { BiUpArrowCircle } from "react-icons/bi";
+import { BiDownArrowCircle } from "react-icons/bi";
+import axios from "axios";
+require("dotenv").config({ path: "./config/.env" });
+
 
 const RecipeCard = (props) => {
   //fake data
@@ -39,9 +42,9 @@ const RecipeCard = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+//actual data
 
-
-  
+const url = 
 
   return (
     <div className='cardContainer'>
