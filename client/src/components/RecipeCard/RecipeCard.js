@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal} from "react-bootstrap";
 import { BiUpArrowCircle } from "react-icons/bi";
 import { BiDownArrowCircle } from "react-icons/bi";
+import "./RecipeCard.css"
 import axios from "axios";
-require("dotenv").config({ path: "./config/.env" });
 
 
 const RecipeCard = (props) => {
@@ -35,6 +35,27 @@ const RecipeCard = (props) => {
     },
   ]);
 
+  //actual data:
+  const [recipe,getRecipe] = useState("");
+
+  const url = "http://localhost:3001/recipe"
+
+  const getAllRecipes = () => {
+    axios.get("http://localhost:3001/recipe/")
+    .then((response) => {
+      const allRecipes = response.data.recipe.allRecipes;
+      getRecipe(allRecipes)
+    })
+    .catch (err => console.error(`Error: ${err}`))
+  }
+
+  useEffect (()=> {
+    getAllRecipes();
+
+  }, [])
+
+  console.log(`recipes:${recipe}`)
+
   //modal launch
 
   const [show, setShow] = useState(false);
@@ -43,17 +64,6 @@ const RecipeCard = (props) => {
   const handleShow = () => setShow(true);
 
 //actual data
-const [recipes,getRecipes] = useState("");
-
-const url = process.env.CONNECTIONSTRING;
-
-const getAllRecipes = () => {
-  axios.get(`{url}`)
-  .then((response) => {
-    const allRecipes = response.data.recipes.allRecipes
-  })
-  .catch(error => console.error(`error:${error}`))
-}
 
   return (
     <div className='cardContainer'>
@@ -98,14 +108,13 @@ const getAllRecipes = () => {
           </Button>
 
         </Modal.Footer>
-      </Modal>
-
-          
+      </Modal>    
 
           </>
         );
       })}
     </div>
+    
   );
 };
 

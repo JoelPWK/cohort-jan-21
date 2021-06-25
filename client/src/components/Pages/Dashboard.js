@@ -1,8 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import RecipeCard from "../RecipeCard";
-import MyRecipes from "../MyRecipes";
-import { Grid } from "@material-ui/core";
+import RecipeCard from "../RecipeCard/RecipeCard";
 
 const Dashboard = () => {
   return (
