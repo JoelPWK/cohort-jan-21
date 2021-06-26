@@ -36,25 +36,43 @@ const RecipeCard = (props) => {
   ]);
 
   //actual data:
-  const [recipe,getRecipe] = useState("");
+  // const [recipe,getRecipe] = useState("");
 
-  const url = "http://localhost:3001/recipe"
+  // const url = "http://localhost:3001/recipe"
 
-  const getAllRecipes = () => {
-    axios.get("http://localhost:3001/recipe/")
-    .then((response) => {
-      const allRecipes = response.data.recipe.allRecipes;
-      getRecipe(allRecipes)
-    })
-    .catch (err => console.error(`Error: ${err}`))
-  }
+  // const getAllRecipes = () => {
+  //   axios.get("http://localhost:3001/recipe/")
+  //   .then((response) => {
+  //     const allRecipes = response.data.recipe.allRecipes;
+  //     getRecipe(allRecipes)
+  //   })
+  //   .catch (err => console.error(`Error: ${err}`))
+  // }
 
-  useEffect (()=> {
-    getAllRecipes();
+  // useEffect (()=> {
+  //   getAllRecipes();
 
-  }, [])
+  // }, [])
 
-  console.log(`recipes:${recipe}`)
+  // console.log(`recipes:${recipe}`)
+
+  //fetch data mk2
+
+  const [meals,setMeals] = useState([{
+    name: "",
+    tools: "",
+    instructions: "",
+  }])
+
+  useEffect(() => {
+    fetch("http://localhost:3001/recipe/").then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+    }).then(jsonRes => setMeals(jsonRes))
+  })
+
+  console.log(meals)
 
   //modal launch
 
@@ -66,6 +84,7 @@ const RecipeCard = (props) => {
 //actual data
 
   return (
+    <>
     <div className='cardContainer'>
       {recipeData.map((recipeData) => {
         return (
@@ -111,9 +130,12 @@ const RecipeCard = (props) => {
       </Modal>    
 
           </>
+          
         );
       })}
     </div>
+
+    </>
     
   );
 };

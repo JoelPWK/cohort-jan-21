@@ -4,6 +4,8 @@ const { Recipe } = require("../models/Recipe");
 const { check, validationResult } = require("express-validator");
 require("dotenv").config({ path: "./config/.env" });
 
+
+
 //get a list of existing recipes
 router.route("/").get(async (req, res) => {
     Recipe.find()
@@ -22,9 +24,8 @@ router.route("/add-recipe").post((req, res) => {
         instructions: instructions,
         tools:tools,
         // likes:likes,
-        estimatedTime:estimatedTime
+        estimatedTime:estimatedTime,
     });
-
 
     //saving in database
     newRecipe
@@ -32,5 +33,7 @@ router.route("/add-recipe").post((req, res) => {
         .then(() => res.json("recipe added"))
         .catch((err) => res.status(400).json("Error: " + err));
 });
+
+
 
 module.exports = router;

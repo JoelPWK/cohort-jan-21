@@ -20,6 +20,7 @@ const CreateRecipe = () => {
     });
 
     const { name, ingredients, instructions, tools, estimatedTime } = formData;
+    console.log(formData)
 
     //Set the state of the form data when user types in the input
     const onChange = (e) => 
@@ -34,6 +35,11 @@ const CreateRecipe = () => {
             }, 5000);
         }
     };
+
+    //imageUpload
+    const uploadImage = () => {
+      
+    }
 
     //Registration button used async cause it will send an API request 
     const onSubmit = async (e) => {
@@ -160,12 +166,16 @@ const CreateRecipe = () => {
               />
             </div>
           </div>
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">
+              Image upload
+            </label>
+            <button onClick={()=> uploadImage()}>Image Upload</button>
+
+          </div>
 
           {/* Submit button */}
-          <Button className="mb-4" variant="primary" type="submit">
-            Upload Photo
-          </Button>
-          <br />
+
           <Button className="mb-4" variant="primary" type="submit">
             Create recipe
           </Button>

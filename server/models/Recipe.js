@@ -16,8 +16,10 @@ const recipeSchema = mongoose.Schema(
         }],
         // likes: [{ user: { type: ObjectId, ref: `User` } }],
         estimatedTime: { type: Number, required: true },
+        image:{ type:String, required:true }
     },
-    { timestamps: true }
+    { timestamps: true },
+   
 );
 
 module.exports.Recipe = mongoose.model(`Recipe`, recipeSchema);

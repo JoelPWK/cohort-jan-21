@@ -8,6 +8,7 @@ import CreateRecipe from "../Pages/CreateRecipe";
 import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
+import MyRecipes from "../Pages/MyRecipes";
 
 const Routes = () => {
     return (
@@ -18,7 +19,7 @@ const Routes = () => {
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/recipe/:id" />
-                <PrivateRoute exact path="/my-recipes" />
+                <PrivateRoute exact path="/my-recipes" component={MyRecipes}/>
                 <PrivateRoute
                     exact
                     path="/create-recipe"
