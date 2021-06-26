@@ -4,8 +4,6 @@ const { Recipe } = require("../models/Recipe");
 const { check, validationResult } = require("express-validator");
 require("dotenv").config({ path: "./config/.env" });
 
-
-
 //get a list of existing recipes
 router.route("/").get(async (req, res) => {
     Recipe.find()
