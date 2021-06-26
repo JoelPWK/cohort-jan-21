@@ -12,31 +12,101 @@ router.route("/").get(async (req, res) => {
 });
 
 //get recipe by id
-router.route("/:id", (req,res) => {
-    Recipe.findById
-})
-
-//adding a new recipe
-router.route("/add-recipe").post((req, res) => {
-    const { ingredients, name, instructions, tools, estimatedTime  } = req.body;
-
-    const newRecipe = new Recipe({
-        // author:author,
-        ingredients:ingredients,
-        name: name,
-        instructions: instructions,
-        tools:tools,
-        // likes:likes,
-        estimatedTime:estimatedTime,
-    });
-
-    //saving in database
-    newRecipe
-        .save()
-        .then(() => res.json("recipe added"))
-        .catch((err) => res.status(400).json("Error: " + err));
+router.route(`/:id`).get(async (req, res) => {
+    const findRecipe = await Recipe.findById(req.params.id);
+    try {
+        res.json(findRecipe);
+    } catch (err) {
+        res.status(400).json(`This recipe does not exist`);
+    }
 });
 
+//adding a new recipe
+router
+    .route("/add-recipe")
+    .post(
+        [
+            check(`name`, `The name of the recipe is required`).exists(),
+            check(
+                `ingredients`,
+                `The ingredients of the recipe are required`
+            ).exists(),
+            check(`tools`, `The tools for the recipe are required`).exists(),
+            check(
+                `estimatedTime`,
+                `The estimated time (in minutes) of the recipe is required`
+            ).exists(),
+        ],
+        (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
 
+            const { ingredients, name, instructions, tools, estimatedTime } =
+                req.body;
+
+            const newRecipe = new Recipe({
+                // author:author,
+                ingredients: ingredients.split(",").map((item) => item.trim()),
+                name: name,
+                instructions: instructions,
+                tools: tools.split(",").map((item) => item.trim()),
+                // likes:likes,
+                estimatedTime: estimatedTime,
+            });
+
+            try {
+                //saving in database
+                newRecipe.save().then(() => res.json("recipe added"));
+            } catch (error) {
+                res.status(400).json("Error: " + err);
+            }
+        }
+    );
+
+// edit existing recipe
+router
+    .route("/:id")
+    .put(
+        [
+            check(`name`, `The name of the recipe is required`).exists(),
+            check(
+                `ingredients`,
+                `The ingredients of the recipe are required`
+            ).exists(),
+            check(`tools`, `The tools for the recipe are required`).exists(),
+            check(
+                `estimatedTime`,
+                `The estimated time (in minutes) of the recipe is required`
+            ).exists(),
+        ],
+        async (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+
+            const { ingredients, name, instructions, tools, estimatedTime } =
+                req.body;
+
+            const updatedRecipe = {
+                // author:author,
+                ingredients: ingredients.split(",").map((item) => item.trim()),
+                name: name,
+                instructions: instructions,
+                tools: tools.split(",").map((item) => item.trim()),
+                // likes:likes,
+                estimatedTime: estimatedTime,
+            };
+
+            try {
+                await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe);
+                res.json(`Recipe updated`);
+            } catch (err) {
+                res.status(400).json(`This recipe does not exist`);
+            }
+        }
+    );
 
 module.exports = router;
