@@ -7,10 +7,9 @@ import Routes from "./components/Routing/Routes";
 
 const App = () => {
     const [loginData, setLoginData] = useState({
-        loggedIn: Boolean(localStorage.getItem("userID")),
+        loggedIn: Boolean(localStorage.getItem("userId")),
         userId:"",
     });
-    console.log({loginData})
 
     return (
         <Fragment>

@@ -3,7 +3,6 @@ import { Button, Modal} from "react-bootstrap";
 import { BiUpArrowCircle } from "react-icons/bi";
 import { BiDownArrowCircle } from "react-icons/bi";
 import "./RecipeCard.css"
-import axios from "axios";
 
 
 const RecipeCard = (props) => {

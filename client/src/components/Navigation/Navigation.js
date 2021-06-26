@@ -45,7 +45,7 @@ const Navigation = (props) => {
                             loggedIn: true,
                             userId: response.data,
                         });
-                        console.log(response.data)
+                        console.log(response.data[0])
                         localStorage.setItem("userId", response.data[0])
                         localStorage.setItem("gravatar", response.data[1])
 
@@ -64,9 +64,17 @@ const Navigation = (props) => {
     };
 
     const toggleLogOut = () => {
-        props.setLoginData({
+        props.setLoginData(            
+            localStorage.removeItem("userId"),
+            localStorage.removeItem("gravatar"),
+            // localStorage.removeItem("list"),
+            // localStorage.removeItem("token"),
+            // localStorage.removeItem("state"),
+            {
+            
             loggedIn: false,
-        });
+        }
+        );
     };
 
     return (
