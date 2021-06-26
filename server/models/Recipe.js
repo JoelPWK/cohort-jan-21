@@ -3,6 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const recipeSchema = mongoose.Schema(
     {
+        author: { type: String },
         // author: { type: ObjectId, required: true, ref: `User` },
         ingredients: [{
             type: String,
@@ -16,7 +17,7 @@ const recipeSchema = mongoose.Schema(
         }],
         // likes: [{ user: { type: ObjectId, ref: `User` } }],
         estimatedTime: { type: Number, required: true },
-        image:{ type:String, required:true }
+        image:{ type:String }
     },
     { timestamps: true },
    

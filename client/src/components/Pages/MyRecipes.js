@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Axios from "axios";
 
-const MyRecipes = () => {
+const MyRecipes = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const username = localStorage.getItem("userId")
+  console.log(`user:${username}`)
 
   useEffect(() => {
     async function fetchPosts() {

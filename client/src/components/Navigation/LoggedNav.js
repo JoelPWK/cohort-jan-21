@@ -7,6 +7,7 @@ const LoggedNav = (props) => {
         window.location.reload(false)
         localStorage.removeItem("userId")
         localStorage.removeItem("gravatar")
+        
     }
 
 

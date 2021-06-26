@@ -11,6 +11,11 @@ router.route("/").get(async (req, res) => {
         .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+//get recipe by id
+router.route("/:id", (req,res) => {
+    Recipe.findById
+})
+
 //adding a new recipe
 router.route("/add-recipe").post((req, res) => {
     const { ingredients, name, instructions, tools, estimatedTime  } = req.body;

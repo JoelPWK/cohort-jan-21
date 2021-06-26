@@ -10,6 +10,7 @@ const CreateRecipe = () => {
         instructions: "",
         tools: "",
         estimatedTime: "",
+        author:localStorage.getItem("userId")
     });
 
     //Initial state of alert
