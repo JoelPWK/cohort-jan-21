@@ -4,6 +4,8 @@ const { User } = require("../models/User");
 const jsonwebtoken = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 require("dotenv").config({ path: "./config/.env" });
+const { check, validationResult } = require('express-validator');
+const gravatar = require('gravatar');
 
 //get a list of existing users
 router.route("/").get(async (req, res) => {
@@ -22,36 +24,70 @@ router.route(`/:id`).get(async (req, res) => {
     }
 });
 
-//adding a new user
-router.route(`/add-user`).post(async (req, res) => {
-    const { email, password } = req.body;
+//Register a new user
+router.route(`/add-user`).post(
+    [
+        check('email', 'Please include a valid email')
+            .isEmail(),
+        check('password', 'Please enter a password with 6 or more characters')
+            .isLength({ min: 6 })
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
-    const newUser = new User({
-        email: email,
-        password: password,
+        const { email, password } = req.body;
+
+        try {
+            //Check if user exists
+            let user = await User.findOne({ email })
+            if (user) {
+                return res
+                    .status(400)
+                    .json({ errors: [{ msg: 'User already exists' }] })
+            }
+            // Get gravatar
+            const avatar = gravatar.url(
+                email,
+                {
+                    s: '200',
+                    r: "pg",
+                    d: "retro"
+                },
+                true
+            )
+
+            user = new User({
+                email,
+                password,
+                avatar
+            })
+
+            // Encrypt password
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+
+            //JWT
+            const token = jsonwebtoken.sign(
+                {
+                    id: user._id,
+                },
+                process.env.JWT_SECRET
+            );
+            //setting as a cookie - only accessible as http - stops javascript from reading the token
+            res.cookie(`token`, token, { httpOnly: true });
+            
+            // Save User to the database
+            await user.save();
+            res.json({ msg: 'User registered'})
+
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server error');
+        }
     });
-
-    // Encrypt password
-    const salt = await bcrypt.genSalt(10);
-    newUser.password = await bcrypt.hash(password, salt);
-
-    //JWT
-    const token = jsonwebtoken.sign(
-        {
-            id: newUser._id,
-        },
-        process.env.JWT_SECRET
-    );
-
-    //setting as a cookie - only accessible as http - stops javascript from reading the token
-    res.cookie(`token`, token, { httpOnly: true });
-
-    //saving in database
-    newUser
-        .save()
-        .then(() => res.json(`User added`))
-        .catch((err) => res.status(400).json(`Error: ${err}`));
-});
 
 // POST request to log user in and retrieve user id
 router.route(`/login`).post(async (req, res) => {
@@ -71,7 +107,7 @@ router.route(`/login`).post(async (req, res) => {
             return res.status(400).json(`Invalid credentials`);
         }
 
-        res.json(user._id);
+        res.json([user._id, user.avatar]);
     } catch (err) {
         res.status(500).json(`Server error`);
     }
