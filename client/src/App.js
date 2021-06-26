@@ -7,7 +7,7 @@ import Routes from "./components/Routing/Routes";
 
 const App = () => {
     const [loginData, setLoginData] = useState({
-        loggedIn: false,
+        loggedIn: Boolean(localStorage.getItem("userID")),
         userId:"",
     });
     console.log({loginData})

@@ -46,6 +46,8 @@ const Navigation = (props) => {
                             userId: response.data,
                         });
                         console.log(response.data)
+                        localStorage.setItem("userId", response.data[0])
+                        localStorage.setItem("gravatar", response.data[1])
 
                         setLoginRequest();
                     } else {
