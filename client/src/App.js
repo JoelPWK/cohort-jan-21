@@ -8,7 +8,9 @@ import Routes from "./components/Routing/Routes";
 const App = () => {
     const [loginData, setLoginData] = useState({
         loggedIn: false,
+        userId:"",
     });
+    console.log({loginData})
 
     return (
         <Fragment>

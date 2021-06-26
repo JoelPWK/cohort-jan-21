@@ -36,13 +36,17 @@ const Navigation = (props) => {
             try {
                 await Axios.post(
                     `http://localhost:3001/users/login`,
-                    loginRequest
-                ).then((response) => {
+                    loginRequest,
+                    )
+                    
+                .then((response) => {
                     if (response.data) {
                         props.setLoginData({
                             loggedIn: true,
                             userId: response.data,
                         });
+                        console.log(response.data)
+
                         setLoginRequest();
                     } else {
                         alertHandler(
