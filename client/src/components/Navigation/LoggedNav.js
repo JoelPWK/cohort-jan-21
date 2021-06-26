@@ -31,6 +31,7 @@ const LoggedNav = (props) => {
                     <button className="mr-3" type="submit">
                         search
                     </button>
+                    <img className="gravatarImg" src={localStorage.getItem("gravatar")} alt="user gravatar"/>
 
                     <Nav.Link onClick={logoutBtn}
                         // onClick={() => {
