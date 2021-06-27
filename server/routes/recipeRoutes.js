@@ -12,8 +12,11 @@ router.route("/").get(async (req, res) => {
 });
 
 //get recipe by id
-router.route("/:id", (req,res) => {
-    Recipe.findById
+router.route("/:id").get(async (req,res) => {
+    let id=req.params.id;
+    Recipe.findById(id, function(err,recipe){
+        res.json(recipe)
+    })
 })
 
 //adding a new recipe
