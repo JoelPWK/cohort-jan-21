@@ -5,10 +5,10 @@ import Axios from "axios";
 const MyRecipes = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const username = localStorage.getItem("userId")
-  console.log(`user:${username}`)
-  const gravatar = localStorage.get("gravatar")
-  console.log(`gravatar:${gravatar}`)
+  const loggedUser = localStorage.getItem("userId")
+  
+  
+ 
 
   useEffect(() => {
     async function fetchPosts() {
@@ -26,18 +26,49 @@ const MyRecipes = (props) => {
 
   if (isLoading) return <div>Loading...</div>;
 
+
   return (
     <Container>
       <h1>My Recipes</h1>
       <div className="cardContainer">
-        {posts.map((post) => {
-          return (
-            <div className="card">
+        {posts.map((post)=>{
+          if(post.author === loggedUser) {
+            return(
+              <div className="card" key={post._id}>
               <div className="card-body>">
                 <div className="card-header">
                   <h2>{post.name}</h2>
+                  <h4>{post._id}</h4>
+
+                <img className="userImg" src={post.gravatar} alt = "avatar"/>
 
                 </div>
+                  <h4>{localStorage.getItem("userId")}</h4>
+
+                <p>{post.instructions}</p>
+                <p>{post.ingredients}</p>
+              </div>
+                </div>
+
+            )
+          }
+        })}
+        
+      </div>
+      <h1>All Recipes</h1>
+      <div className="cardContainer">
+        {posts.map((post) => {
+          return (
+            <div className="card" key={post._id}>
+              <div className="card-body>">
+                <div className="card-header">
+                  <h2>{post.name}</h2>
+                  <h4>{post._id}</h4>
+
+                <img className="userImg" src={post.gravatar} alt = "avatar"/>
+
+                </div>
+                  <h4>{localStorage.getItem("userId")}</h4>
 
                 <p>{post.instructions}</p>
                 <p>{post.ingredients}</p>
