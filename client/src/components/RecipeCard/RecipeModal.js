@@ -11,7 +11,7 @@ function RecipeModal() {
             try {
                 const response = await Axios.get(`http://localhost:3001/recipe/${id}`)
                 setPost(response.data)
-            } catch(e) {
+                            } catch(e) {
                 console.log("there seems to be an error")
             }
         }

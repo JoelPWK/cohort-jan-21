@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Axios from "axios";
 import RecipeModal from "../RecipeCard/RecipeModal";
+import { useParams } from "react-router-dom";
 
 const MyRecipes = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const loggedUser = localStorage.getItem("userId")
+  const [ singlePost, setSinglePost] = useState([])
   
     useEffect(() => {
     async function fetchPosts() {
@@ -24,6 +26,34 @@ const MyRecipes = (props) => {
 
   if (isLoading) return <div>Loading...</div>;
 
+  const modalLaunch = async (e) => {
+    // const {id} = useParams();
+    const id = posts._id
+
+        // e.preventDefault();
+
+        try {
+            await Axios.get(
+                `http://localhost:3001/recipe/${id}`
+                )
+                
+            .then((response) => {
+                if (response.data) {
+                    setSinglePost({
+                        singlePost: response.data,
+                    });
+                    console.log(response.data)
+                } else {
+                  console.log("no post matching id")
+
+                }
+            });
+        } catch {
+            console.log("this really didnt work");
+        }
+    
+};
+
 
   return (
     <Container>
@@ -32,7 +62,7 @@ const MyRecipes = (props) => {
         {posts.map((post)=>{
           if(post.author === loggedUser) {
             return(
-              <div className="card" key={post._id}>
+              <div className="card" key={post._id} onClick={() => modalLaunch()} >
               <div className="card-body>">
                 <div className="card-header">
                   <h2>{post.name}</h2>
@@ -55,7 +85,7 @@ const MyRecipes = (props) => {
       <div className="cardContainer">
         {posts.map((post) => {
           return (
-            <div className="card" key={post._id} onClick={<RecipeModal/>} >
+            <div className="card" key={post._id} >
               <div className="card-body>">
                 <div className="card-header">
                   <h2>{post.name}</h2>
