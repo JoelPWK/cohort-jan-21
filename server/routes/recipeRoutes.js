@@ -13,11 +13,12 @@ router.route("/").get(async (req, res) => {
 
 //get recipe by id
 router.route("/:id").get(async (req,res) => {
-    let id=req.params.id;
-    Recipe.findById(id, function(err,recipe){
-        res.json(recipe)
+    Recipe.findById(req.params.id)
+    .then((recipe) => res.json(recipe))
+    .catch((err) => res.status(404).json( "No recipe found" ));
     })
-})
+
+
 
 //adding a new recipe
 router.route("/add-recipe").post((req, res) => {

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Axios from "axios";
+import RecipeModal from "../RecipeCard/RecipeModal";
 
 const MyRecipes = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const loggedUser = localStorage.getItem("userId")
   
-  
- 
-
-  useEffect(() => {
+    useEffect(() => {
     async function fetchPosts() {
       try {
         const response = await Axios.get("http://localhost:3001/recipe/");
@@ -57,7 +55,7 @@ const MyRecipes = (props) => {
       <div className="cardContainer">
         {posts.map((post) => {
           return (
-            <div className="card" key={post._id}>
+            <div className="card" key={post._id} onClick={<RecipeModal/>} >
               <div className="card-body>">
                 <div className="card-header">
                   <h2>{post.name}</h2>
