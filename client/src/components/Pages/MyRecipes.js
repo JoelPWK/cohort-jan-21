@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { Button, Modal } from "react-bootstrap";
 import Axios from "axios";
+import EmptyRecipes from "../Pages/EmptyRecipes"
+
 
 const MyRecipes = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +66,7 @@ const MyRecipes = () => {
                                 </div>
                             </div>
                         );
-                    }
+                    } 
                 })}
             </div>
             <Modal show={show} onHide={handleClose} animation={false}>
