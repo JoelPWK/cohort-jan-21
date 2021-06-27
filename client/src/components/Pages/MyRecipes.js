@@ -44,6 +44,7 @@ const MyRecipes = () => {
   return (
     <Container>
       <h1>My Recipes</h1>
+      <br />
       <div className="cardContainer">
         {posts.map((post) => {
           if (post.author === loggedUser) {
@@ -59,8 +60,8 @@ const MyRecipes = () => {
                     <img className="userImg" src={post.gravatar} alt="avatar" />
                   </div>
                   <img className="foodImg" src={holdingImg} alt="recipe" />
-                  <p>Instructions: {post.instructions}</p>
-                  <p>Ingredients: {post.ingredients}</p>
+                  <p className="cardInstructions">Instructions: {post.instructions}</p>
+                  <p className="cardIngredients">Ingredients: {post.ingredients}</p>
                   <p>Estimate cooking time: {post.estimatedTime} mins</p>
                   <p>
                     <b>Likes: </b>
@@ -77,8 +78,10 @@ const MyRecipes = () => {
           <Modal.Title>
             {modalPost.name}
             <br />
-            Recipe created by:
-            <img className="userImg" src={modalPost.gravatar}></img>
+            <p>Recipe created by:  
+            <img className="mx-3 userImg" src={modalPost.gravatar}></img>
+
+            </p>
           </Modal.Title>
         </Modal.Header>
         <img src={holdingImg} alt="food" width="200" className="foodImg" />
@@ -116,10 +119,11 @@ const MyRecipes = () => {
           </div>
           <br />
           <br />
-          Instructions: <br />
+          <b>Instructions:</b> <br />
           {modalPost.instructions}
           <br />
           <br />
+          <p>Last updated on: {modalPost.updatedAt}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -127,7 +131,7 @@ const MyRecipes = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <h1>All Recipes</h1>
+      {/* <h1>All Recipes</h1>
       <div className="cardContainer">
         {posts.map((post) => {
           return (
@@ -146,7 +150,7 @@ const MyRecipes = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </Container>
   );
 };
