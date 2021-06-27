@@ -9,6 +9,7 @@ import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
 import MyRecipes from "../Pages/MyRecipes";
+import RecipeModal from "../RecipeCard/RecipeModal";
 
 const Routes = () => {
     return (
@@ -18,7 +19,7 @@ const Routes = () => {
                 <Route exact path="/" component={CarouselBootstrap} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/recipe/:id" />
+                <PrivateRoute exact path="/recipe/:id" component={RecipeModal}/>
                 <PrivateRoute exact path="/my-recipes" component={MyRecipes}/>
                 <PrivateRoute
                     exact

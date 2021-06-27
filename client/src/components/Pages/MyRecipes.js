@@ -26,9 +26,7 @@ const MyRecipes = (props) => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  const modalLaunch = async (e) => {
-    // const {id} = useParams();
-    const id = posts._id
+  const modalLaunch = async (id) => {
 
         // e.preventDefault();
 
@@ -62,7 +60,7 @@ const MyRecipes = (props) => {
         {posts.map((post)=>{
           if(post.author === loggedUser) {
             return(
-              <div className="card" key={post._id} onClick={() => modalLaunch()} >
+              <div className="card" key={post._id} onClick={() => modalLaunch(post._id)} >
               <div className="card-body>">
                 <div className="card-header">
                   <h2>{post.name}</h2>
