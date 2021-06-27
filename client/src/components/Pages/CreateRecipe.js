@@ -10,7 +10,8 @@ const CreateRecipe = () => {
         instructions: "",
         tools: "",
         estimatedTime: "",
-        author:localStorage.getItem("userId")
+        author:localStorage.getItem("userId"),
+        gravatar:localStorage.getItem("gravatar")
     });
 
     //Initial state of alert
@@ -20,7 +21,7 @@ const CreateRecipe = () => {
         showing: false,
     });
 
-    const { name, ingredients, instructions, tools, estimatedTime } = formData;
+    const { name, ingredients, instructions, tools, estimatedTime, author, gravatar } = formData;
     console.log(formData)
 
     //Set the state of the form data when user types in the input
@@ -55,6 +56,9 @@ const CreateRecipe = () => {
             instructions: instructions,
             tools: toolsSplit,
             estimatedTime: estimatedTime,
+            author: author,
+            gravatar: gravatar
+ 
         }
 
         await Axios.post("http://localhost:3001/recipe/add-recipe", recipeData)
@@ -171,9 +175,9 @@ const CreateRecipe = () => {
             <label className="col-sm-2 col-form-label">
               Image upload
             </label>
-            <button onClick={()=> uploadImage()}>Image Upload</button>
+            <button onClick={uploadImage}>Image Upload</button>
 
-          </div>
+          </div>   
 
           {/* Submit button */}
 

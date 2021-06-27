@@ -5,6 +5,7 @@ const recipeSchema = mongoose.Schema(
     {
         author: { type: String },
         // author: { type: ObjectId, required: true, ref: `User` },
+        gravatar: {type: String},
         ingredients: [{
             type: String,
             required: true

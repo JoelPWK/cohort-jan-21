@@ -7,6 +7,8 @@ const MyRecipes = (props) => {
   const [posts, setPosts] = useState([]);
   const username = localStorage.getItem("userId")
   console.log(`user:${username}`)
+  const gravatar = localStorage.get("gravatar")
+  console.log(`gravatar:${gravatar}`)
 
   useEffect(() => {
     async function fetchPosts() {

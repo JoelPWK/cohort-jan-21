@@ -18,12 +18,13 @@ router.route("/:id", (req,res) => {
 
 //adding a new recipe
 router.route("/add-recipe").post((req, res) => {
-    const { ingredients, name, instructions, tools, estimatedTime  } = req.body;
+    const { ingredients, name, instructions, tools, estimatedTime,gravatar,author  } = req.body;
 
     const newRecipe = new Recipe({
-        // author:author,
         ingredients:ingredients,
         name: name,
+        author:author,
+        gravatar:gravatar,
         instructions: instructions,
         tools:tools,
         // likes:likes,
