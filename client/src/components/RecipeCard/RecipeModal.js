@@ -1,29 +1,37 @@
-import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom"
-import Axios from 'axios'
+import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 
-function RecipeModal() {
-    const {id} = useParams()
-    const[post,setPost] = useState()
+const RecipeModal = (props) => {
+    const recipeData = props.post;
+    const [show, setShow] = useState(props.show);
+    const handleClose = () => setShow(false);
 
-    useEffect(()=>{
-        async function fetchPost() {
-            try {
-                const response = await Axios.get(`http://localhost:3001/recipe/${id}`)
-                setPost(response.data)
-                            } catch(e) {
-                console.log("there seems to be an error")
-            }
-        }
-        fetchPost()
-        
-    },[])
     return (
-        <div>
-            <h2>{post.name}</h2>
-            
-        </div>
-    )
-}
+        <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    Recipe Title: {recipeData.name}
+                    <br />
+                    Recipe created by: {recipeData.author}
+                </Modal.Title>
+            </Modal.Header>
+            <img
+                src={recipeData.photo}
+                alt="food image"
+                width="200"
+                className="modalImg"
+            ></img>
+            <Modal.Body>
+                Instructions: <br />
+                {recipeData.instructions}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    );
+};
 
-export default RecipeModal
+export default RecipeModal;
