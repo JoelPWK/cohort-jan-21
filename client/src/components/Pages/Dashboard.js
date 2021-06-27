@@ -7,6 +7,7 @@ const Dashboard = () => {
   return (
     <Container>
       <EmptyRecipes />
+      <RecipeCard />
       
     </Container>
   );
