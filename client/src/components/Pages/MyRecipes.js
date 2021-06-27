@@ -94,7 +94,7 @@ const MyRecipes = (props) => {
                 <img className="userImg" src={post.gravatar} alt = "avatar"/>
 
                 </div>
-                  <h4>{localStorage.getItem("userId")}</h4>
+                  
 
                 <p>{post.instructions}</p>
                 <p>{post.ingredients}</p>
