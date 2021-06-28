@@ -4,12 +4,10 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 const LoggedNav = (props) => {
     function logoutBtn() {
         // props.setLogInData(false)
-        window.location.reload(false)
-        localStorage.removeItem("userId")
-        localStorage.removeItem("gravatar")
-        
+        window.location.reload(false);
+        localStorage.removeItem("userId");
+        localStorage.removeItem("gravatar");
     }
-
 
     return (
         <Fragment>
@@ -19,7 +17,9 @@ const LoggedNav = (props) => {
                     <Nav.Link href="/ingredients">Ingredients List</Nav.Link>
 
                     <NavDropdown title="Recipes" className="mr-5">
-                        <NavDropdown.Item>My Recipes</NavDropdown.Item>
+                        <NavDropdown.Item href="/my-recipes">
+                            My Recipes
+                        </NavDropdown.Item>
                         <NavDropdown.Item>Saved Recipes</NavDropdown.Item>
                         <NavDropdown.Item>Browse Recipes</NavDropdown.Item>
                     </NavDropdown>
@@ -32,9 +32,14 @@ const LoggedNav = (props) => {
                     <button className="mr-3" type="submit">
                         search
                     </button>
-                    <img className="gravatarImg" src={localStorage.getItem("gravatar")} alt="user gravatar"/>
+                    <img
+                        className="gravatarImg"
+                        src={localStorage.getItem("gravatar")}
+                        alt="user gravatar"
+                    />
 
-                    <Nav.Link onClick={logoutBtn}
+                    <Nav.Link
+                        onClick={logoutBtn}
                         // onClick={() => {
                         //     props.logout();
                         // }}

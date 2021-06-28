@@ -50,6 +50,8 @@ router
                     instructions,
                     tools,
                     estimatedTime,
+                    gravatar,
+                    author,
                 } = req.body;
 
                 const newRecipe = new Recipe({
@@ -58,6 +60,8 @@ router
                         .split(`,`)
                         .map((item) => item.trim()),
                     name: name,
+                    author: author,
+                    gravatar: gravatar,
                     instructions: instructions,
                     tools: tools.split(`,`).map((item) => item.trim()),
                     // likes:likes,
@@ -101,13 +105,21 @@ router
                 return res.status(400).json(`This recipe does not exist.`);
             }
 
-            const { ingredients, name, instructions, tools, estimatedTime } =
-                req.body;
+            const {
+                ingredients,
+                name,
+                instructions,
+                tools,
+                estimatedTime,
+                gravatar,
+                author,
+            } = req.body;
 
             const updatedRecipe = {
-                // author:author,
                 ingredients: ingredients.split(`,`).map((item) => item.trim()),
                 name: name,
+                author: author,
+                gravatar: gravatar,
                 instructions: instructions,
                 tools: tools.split(`,`).map((item) => item.trim()),
                 // likes:likes,
