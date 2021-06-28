@@ -36,19 +36,20 @@ const Navigation = (props) => {
             try {
                 await Axios.post(
                     `http://localhost:3001/users/login`,
-                    loginRequest,
-                    )
-                    
-                .then((response) => {
+                    loginRequest
+                ).then((response) => {
                     if (response.data) {
                         props.setLoginData({
                             loggedIn: true,
                             userId: response.data,
                         });
-                        localStorage.setItem("userId", response.data[0])
-                        localStorage.setItem("gravatar", response.data[1])
-
+                        localStorage.setItem("userId", response.data.userId);
+                        localStorage.setItem(
+                            "gravatar",
+                            response.data.userAvatar
+                        );
                         setLoginRequest();
+                        window.location.reload(false);
                     } else {
                         alertHandler(
                             `Invalid login credentials`,
@@ -63,14 +64,13 @@ const Navigation = (props) => {
     };
 
     const toggleLogOut = () => {
-        props.setLoginData(            
+        props.setLoginData(
             localStorage.removeItem("userId"),
             localStorage.removeItem("gravatar"),
 
             {
-            
-            loggedIn: false,
-        }
+                loggedIn: false,
+            }
         );
     };
 

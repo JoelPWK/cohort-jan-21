@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-const LoggedNav = (props) => {
-    function logoutBtn() {
-        // props.setLogInData(false)
+const LoggedNav = () => {
+    const logoutBtn = () => {
         window.location.reload(false);
         localStorage.removeItem("userId");
         localStorage.removeItem("gravatar");
-    }
+    };
 
     return (
         <Fragment>
@@ -40,14 +39,7 @@ const LoggedNav = (props) => {
                         alt="user gravatar"
                     />
 
-                    <Nav.Link
-                        onClick={logoutBtn}
-                        // onClick={() => {
-                        //     props.logout();
-                        // }}
-                    >
-                        Sign Out
-                    </Nav.Link>
+                    <Nav.Link onClick={logoutBtn}>Sign Out</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Fragment>
