@@ -46,7 +46,7 @@ const Routes = () => {
                 <PrivateRoute exact path="/edit-ingredient" />
                 <PrivateRoute
                     exact
-                    path="/account-details"
+                    path="/account-settings"
                     component={AccountSettings}
                 />
                 <Route component={NotFound} />

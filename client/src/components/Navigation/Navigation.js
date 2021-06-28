@@ -73,7 +73,7 @@ const Navigation = (props) => {
         props.setLoginData(
             localStorage.removeItem("userId"),
             localStorage.removeItem("gravatar"),
-
+            localStorage.removeItem("userEmail"),
             {
                 loggedIn: false,
             }
