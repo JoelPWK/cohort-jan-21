@@ -6,9 +6,12 @@ require("dotenv").config({ path: "./config/.env" });
 
 //get a list of existing recipes
 router.route(`/`).get(async (req, res) => {
-    Recipe.find()
-        .then((recipes) => res.json(recipes))
-        .catch((err) => res.status(400).json(`Error: ${err}`));
+    const findRecipe = await Recipe.find();
+    try {
+        res.json(findRecipe);
+    } catch (err) {
+        res.status(400).json(`The recipe list is empty`);
+    }
 });
 
 //get recipe by id
@@ -55,7 +58,6 @@ router
                 } = req.body;
 
                 const newRecipe = new Recipe({
-                    // author:author,
                     ingredients: ingredients
                         .split(`,`)
                         .map((item) => item.trim()),
@@ -72,7 +74,7 @@ router
                 await newRecipe.save();
                 res.json(`Recipe added`);
             } catch (error) {
-                res.status(500).json(`Server error: ${err}`);
+                res.status(500).json(`Server error: ${error}`);
             }
         }
     );
