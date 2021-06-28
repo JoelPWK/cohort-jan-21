@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Recipe } = require("../models/Recipe");
 const { check, validationResult } = require("express-validator");
-const { request } = require("express");
 require("dotenv").config({ path: "./config/.env" });
 
 //get a list of existing recipes
