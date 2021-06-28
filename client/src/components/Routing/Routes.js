@@ -9,6 +9,8 @@ import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
 import MyRecipes from "../Pages/MyRecipes";
+import EditRecipe from "../Pages/EditRecipe";
+import BrowseRecipes from "../Pages/BrowseRecipes";
 
 const Routes = () => {
     return (
@@ -19,13 +21,22 @@ const Routes = () => {
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/recipe/:id" />
-                <PrivateRoute exact path="/my-recipes" component={MyRecipes}/>
+                <PrivateRoute exact path="/my-recipes" component={MyRecipes} />
+                <PrivateRoute
+                    exact
+                    path="/browse-recipes"
+                    component={BrowseRecipes}
+                />
                 <PrivateRoute
                     exact
                     path="/create-recipe"
                     component={CreateRecipe}
                 />
-                <PrivateRoute exact path="/edit-recipe" />
+                <PrivateRoute
+                    exact
+                    path="/edit-recipe"
+                    component={EditRecipe}
+                />
                 <PrivateRoute
                     exact
                     path="/ingredients"

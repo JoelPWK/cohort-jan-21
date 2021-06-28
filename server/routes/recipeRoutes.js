@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Recipe } = require("../models/Recipe");
 const { check, validationResult } = require("express-validator");
+const { request } = require("express");
 require("dotenv").config({ path: "./config/.env" });
 
 //get a list of existing recipes
@@ -47,95 +48,52 @@ router
             }
 
             try {
-                const {
-                    ingredients,
-                    name,
-                    instructions,
-                    tools,
-                    estimatedTime,
-                    gravatar,
-                    author,
-                } = req.body;
+                req.body.ingredients = req.body.ingredients
+                    .split(`,`)
+                    .map((item) => item.trim());
 
-                const newRecipe = new Recipe({
-                    ingredients: ingredients
-                        .split(`,`)
-                        .map((item) => item.trim()),
-                    name: name,
-                    author: author,
-                    gravatar: gravatar,
-                    instructions: instructions,
-                    tools: tools.split(`,`).map((item) => item.trim()),
-                    // likes:likes,
-                    estimatedTime: estimatedTime,
-                });
+                req.body.tools = req.body.tools
+                    .split(`,`)
+                    .map((item) => item.trim());
+
+                const newRecipe = new Recipe(req.body);
 
                 //saving in database
                 await newRecipe.save();
                 res.json(`Recipe added`);
-            } catch (error) {
-                res.status(500).json(`Server error: ${error}`);
-            }
-        }
-    );
-
-// edit existing recipe
-router
-    .route(`/:id`)
-    .put(
-        [
-            check(`name`, `The name of the recipe is required`).exists(),
-            check(
-                `ingredients`,
-                `The ingredients of the recipe are required`
-            ).exists(),
-            check(`tools`, `The tools for the recipe are required`).exists(),
-            check(
-                `estimatedTime`,
-                `The estimated time (in minutes) of the recipe is required`
-            ).exists(),
-        ],
-        async (req, res) => {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const findRecipe = await Recipe.findById(req.params.id);
-
-            if (!findRecipe) {
-                return res.status(400).json(`This recipe does not exist.`);
-            }
-
-            const {
-                ingredients,
-                name,
-                instructions,
-                tools,
-                estimatedTime,
-                gravatar,
-                author,
-            } = req.body;
-
-            const updatedRecipe = {
-                ingredients: ingredients.split(`,`).map((item) => item.trim()),
-                name: name,
-                author: author,
-                gravatar: gravatar,
-                instructions: instructions,
-                tools: tools.split(`,`).map((item) => item.trim()),
-                // likes:likes,
-                estimatedTime: estimatedTime,
-            };
-
-            try {
-                await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe);
-                res.json(`Recipe updated`);
             } catch (err) {
                 res.status(500).json(`Server error: ${err}`);
             }
         }
     );
+
+// edit existing recipe
+router.route(`/:id`).put(async (req, res) => {
+    const findRecipe = await Recipe.findById(req.params.id);
+
+    if (!findRecipe) {
+        return res.status(400).json(`This recipe does not exist.`);
+    }
+
+    try {
+        if (req.body.ingredients) {
+            req.body.ingredients = req.body.ingredients
+                .split(`,`)
+                .map((item) => item.trim());
+        }
+
+        if (req.body.tools) {
+            req.body.tools = req.body.tools
+                .split(`,`)
+                .map((item) => item.trim());
+        }
+
+        await Recipe.findByIdAndUpdate(findRecipe, req.body);
+        res.json(`Recipe updated`);
+    } catch (err) {
+        res.status(500).json(`Server error: ${err}`);
+    }
+});
 
 // delete existing recipe
 router.route(`/:id`).delete(async (req, res) => {

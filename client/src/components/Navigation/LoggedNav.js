@@ -21,7 +21,9 @@ const LoggedNav = (props) => {
                             My Recipes
                         </NavDropdown.Item>
                         <NavDropdown.Item>Saved Recipes</NavDropdown.Item>
-                        <NavDropdown.Item>Browse Recipes</NavDropdown.Item>
+                        <NavDropdown.Item href="/browse-recipes">
+                            Browse Recipes
+                        </NavDropdown.Item>
                     </NavDropdown>
 
                     <input

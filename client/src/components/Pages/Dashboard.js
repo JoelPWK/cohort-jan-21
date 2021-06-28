@@ -4,13 +4,12 @@ import BrowseRecipes from "./BrowseRecipes";
 import MyRecipes from "./MyRecipes";
 
 const Dashboard = () => {
-  return (
-    <Container>
-      <MyRecipes />
-      <BrowseRecipes />
-      
-    </Container>
-  );
+    return (
+        <Container>
+            <MyRecipes />
+            <BrowseRecipes />
+        </Container>
+    );
 };
 
 export default Dashboard;

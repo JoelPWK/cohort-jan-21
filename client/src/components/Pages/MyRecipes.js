@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { Button, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./MyRecipes.css";
 
@@ -10,6 +11,7 @@ const MyRecipes = () => {
     const loggedUser = localStorage.getItem("userId");
     const [modalPost, setModalPost] = useState({});
     const [show, setShow] = useState(false);
+    const [deletePost, setDeletePost] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -23,7 +25,6 @@ const MyRecipes = () => {
     const fetchPosts = async () => {
         try {
             const response = await Axios.get("http://localhost:3001/recipe/");
-            console.log(response.data);
             setIsLoading(false);
             setPosts(response.data);
         } catch (e) {
@@ -39,13 +40,18 @@ const MyRecipes = () => {
 
     const modalLaunch = (post) => {
         handleShow();
-        setModalPost(post);
+        setModalPost({
+            ...post,
+            ingredients: post.ingredients.toString().replace(/,[s]*/g, ", "),
+            tools: post.tools.toString().replace(/,[s]*/g, ", "),
+        });
     };
 
     const deleteRecipeCard = async (id) => {
         try {
             await Axios.delete(`http://localhost:3001/recipe/${id}`);
             handleClose();
+            setDeletePost(false);
             fetchPosts();
         } catch (e) {
             console.log(`error`);
@@ -83,7 +89,10 @@ const MyRecipes = () => {
                                         Instructions: {post.instructions}
                                     </p>
                                     <p className="cardIngredients">
-                                        Ingredients: {post.ingredients}
+                                        Ingredients:{" "}
+                                        {post.ingredients
+                                            .toString()
+                                            .replace(/,[s]*/g, ", ")}
                                     </p>
                                     <p>
                                         Estimate cooking time:{" "}
@@ -121,17 +130,40 @@ const MyRecipes = () => {
                 />
                 <Modal.Body>
                     {/* edit button */}
-                    <a class="btn btn-large">
+                    <Link
+                        class="btn btn-large"
+                        to={{
+                            pathname: "/edit-recipe",
+                            modalPost: modalPost,
+                        }}
+                    >
                         <i class="fa fa-pencil-square-o" aria-hidden="true" />
-                    </a>
+                    </Link>
                     {/* delete button */}
                     <a
                         class="btn btn-large"
-                        onClick={() => deleteRecipeCard(modalPost._id)}
+                        onClick={() => setDeletePost(true)}
                     >
                         <i class="fa fa-trash-o" aria-hidden="true" />
                     </a>
                     <br />
+                    {deletePost ? (
+                        <div className="text-center py-2">
+                            Are you sure you want to delete this post? <br />
+                            This action cannot be undone.
+                            <br />
+                            <button
+                                onClick={() => deleteRecipeCard(modalPost._id)}
+                            >
+                                Yes
+                            </button>
+                            <button onClick={() => setDeletePost(false)}>
+                                No
+                            </button>
+                        </div>
+                    ) : (
+                        <Fragment />
+                    )}
                     <p>
                         <b>
                             Estimated time to complete meal:{" "}
