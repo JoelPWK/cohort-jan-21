@@ -110,9 +110,47 @@ router.route(`/login`).post(async (req, res) => {
             return res.status(400).json(`Invalid credentials`);
         }
 
-        res.json({ userId: user._id, userAvatar: user.avatar });
+        res.json({
+            userId: user._id,
+            userAvatar: user.avatar,
+            userEmail: user.email,
+        });
     } catch (err) {
         res.status(500).json(`Server error`);
+    }
+});
+
+// edit existing user
+router.route(`/:id`).put(async (req, res) => {
+    const findUser = await User.findById(req.params.id);
+
+    if (!findUser) {
+        return res.status(400).json(`This user does not exist.`);
+    }
+
+    try {
+        if (req.body.password) {
+            const salt = await bcrypt.genSalt(10);
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+        }
+        await User.findByIdAndUpdate(findUser, req.body);
+        res.json(`User updated`);
+    } catch (err) {
+        res.status(500).json(`Server error: ${err}`);
+    }
+});
+
+// delete existing user
+router.route(`/:id`).delete(async (req, res) => {
+    const findUser = await User.findById(req.params.id);
+    if (!findUser) {
+        return res.status(400).json(`This user does not exist.`);
+    }
+    try {
+        await User.deleteOne(findUser);
+        res.json(`User deleted`);
+    } catch (err) {
+        res.status(500).json(`Server error: ${err}`);
     }
 });
 

@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState, Fragment } from "react";
 import { Navbar } from "react-bootstrap";
+import { Route, Redirect } from "react-router-dom";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
 import logo from "../../Images/logo.png";
@@ -43,13 +44,18 @@ const Navigation = (props) => {
                             loggedIn: true,
                             userId: response.data,
                         });
-                        localStorage.setItem("userId", response.data.userId);
+                        localStorage.setItem(`userId`, response.data.userId);
                         localStorage.setItem(
-                            "gravatar",
+                            `gravatar`,
                             response.data.userAvatar
+                        );
+                        localStorage.setItem(
+                            `userEmail`,
+                            response.data.userEmail
                         );
                         setLoginRequest();
                         window.location.reload(false);
+                        window.location.href = `/dashboard`;
                     } else {
                         alertHandler(
                             `Invalid login credentials`,

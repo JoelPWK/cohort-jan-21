@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 
-const Register = () => {
+const Register = (props) => {
     //Initial state of form data
     const [formData, setFormData] = useState({
         email: "",
@@ -43,8 +43,8 @@ const Register = () => {
             //if they match then save the user to database and display the alert
         } else {
             const registerData = {
-                email: formData.email,
-                password: formData.password1,
+                email: email,
+                password: password1,
             };
             //adding data into the database
             await Axios.post(
@@ -53,7 +53,24 @@ const Register = () => {
             );
             alertHandler("User registered", "alert-success");
             //TODO:: clearing input fields
+
+            loginUser(registerData);
         }
+    };
+
+    const loginUser = async (loginData) => {
+        await Axios.post(`http://localhost:3001/users/login`, loginData).then(
+            (response) => {
+                if (response.data) {
+                    localStorage.setItem(`userId`, response.data.userId);
+                    localStorage.setItem(`gravatar`, response.data.userAvatar);
+                    localStorage.setItem(`userEmail`, response.data.userEmail);
+                    window.location.reload(false);
+                } else {
+                    alertHandler(`Invalid login credentials`, `alert-danger`);
+                }
+            }
+        );
     };
 
     //TODO:: get user's token and if token is authenticated redirect user to their dashboard

@@ -176,15 +176,6 @@ const EditRecipe = (props) => {
                             />
                         </div>
                     </div>
-                    {/* <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">
-                            Image upload
-                        </label>
-                        <button onClick={uploadImage}>Image Upload</button>
-                    </div> */}
-
-                    {/* Submit button */}
-
                     <Button className="mb-4" variant="primary" type="submit">
                         Update recipe
                     </Button>

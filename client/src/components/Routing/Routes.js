@@ -11,6 +11,7 @@ import NotFound from "../Pages/NotFound";
 import MyRecipes from "../Pages/MyRecipes";
 import EditRecipe from "../Pages/EditRecipe";
 import BrowseRecipes from "../Pages/BrowseRecipes";
+import AccountSettings from "../Pages/AccountSettings";
 
 const Routes = () => {
     return (
@@ -20,7 +21,6 @@ const Routes = () => {
                 <Route exact path="/" component={CarouselBootstrap} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/recipe/:id" />
                 <PrivateRoute exact path="/my-recipes" component={MyRecipes} />
                 <PrivateRoute
                     exact
@@ -44,6 +44,11 @@ const Routes = () => {
                 />
                 <PrivateRoute exact path="/add-ingredient" />
                 <PrivateRoute exact path="/edit-ingredient" />
+                <PrivateRoute
+                    exact
+                    path="/account-details"
+                    component={AccountSettings}
+                />
                 <Route component={NotFound} />
             </Switch>
         </Fragment>

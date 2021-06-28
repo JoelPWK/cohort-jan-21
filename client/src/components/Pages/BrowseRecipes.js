@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import "./BrowseRecipes.css";
 
-function BrowseRecipes() {
+const BrowseRecipes = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const loggedUser = localStorage.getItem("userId");
@@ -218,6 +218,6 @@ function BrowseRecipes() {
             </Modal>
         </Container>
     );
-}
+};
 
 export default BrowseRecipes;

@@ -6,6 +6,7 @@ const LoggedNav = () => {
         window.location.reload(false);
         localStorage.removeItem("userId");
         localStorage.removeItem("gravatar");
+        localStorage.removeItem("userEmail");
     };
 
     return (
@@ -33,13 +34,24 @@ const LoggedNav = () => {
                     <button className="mr-3" type="submit">
                         search
                     </button>
-                    <img
-                        className="gravatarImg"
-                        src={localStorage.getItem("gravatar")}
-                        alt="user gravatar"
-                    />
 
-                    <Nav.Link onClick={logoutBtn}>Sign Out</Nav.Link>
+                    <NavDropdown
+                        title={
+                            <img
+                                className="gravatarImg"
+                                src={localStorage.getItem("gravatar")}
+                                alt="user gravatar"
+                            />
+                        }
+                        className="mr-5"
+                    >
+                        <NavDropdown.Item href="/account-details">
+                            My Account Details
+                        </NavDropdown.Item>
+                        <NavDropdown.Item onClick={logoutBtn}>
+                            Sign Out
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
         </Fragment>

@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class RecipeDashboard extends Component {
-  render() {
+const RecipeDashboard = () => {
     return (
-      <div>
-        <h1>My Recipes</h1>
-        <RecipeCard />
-      </div>
+        <div>
+            <h1>My Recipes</h1>
+            <RecipeCard />
+        </div>
     );
-  }
-}
+};
 
 export default RecipeDashboard;
