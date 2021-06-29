@@ -117,24 +117,27 @@ const BrowseRecipes = () => {
                                     src={holdingImg}
                                     alt="recipe"
                                 />
-                                <p className="cardInstructions">
-                                    Instructions: {post.instructions}
-                                </p>
-                                <p className="cardIngredients">
-                                    Ingredients:{` `}
-                                    {post.ingredients
-                                        .toString()
-                                        .replace(/,[s]*/g, `, `)}
-                                </p>
-                                <p>
-                                    Estimate cooking time: {post.estimatedTime}
-                                    {` `}
-                                    mins
-                                </p>
-                                <p>
-                                    <b>Likes: </b>
-                                    {holdingLikes}
-                                </p>
+                                <div className="p-2">
+                                    <p className="cardInstructions">
+                                        Instructions: {post.instructions}
+                                    </p>
+                                    <p className="cardIngredients">
+                                        Ingredients:{` `}
+                                        {post.ingredients
+                                            .toString()
+                                            .replace(/,[s]*/g, `, `)}
+                                    </p>
+                                    <p>
+                                        Estimate cooking time:{" "}
+                                        {post.estimatedTime}
+                                        {` `}
+                                        mins
+                                    </p>
+                                    <p>
+                                        <b>Likes: </b>
+                                        {holdingLikes}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     );
@@ -215,7 +218,7 @@ const BrowseRecipes = () => {
                             {modalPost.estimatedTime} mins
                         </b>
                     </p>
-                    <div className="modalToolsIngredients">
+                    <div className="modalToolsIngredients px-2">
                         <p>
                             <b>
                                 <u>Tools </u>
