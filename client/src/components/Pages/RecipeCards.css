@@ -46,12 +46,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 30ch;
+    max-width: 25ch;
 }
 
 .cardIngredients {
     max-width: 30ch;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .modalToolsIngredients {

@@ -128,7 +128,7 @@ const BrowseRecipes = () => {
                                             .replace(/,[s]*/g, `, `)}
                                     </p>
                                     <p>
-                                        Estimate cooking time:{" "}
+                                        Estimated cooking time:{" "}
                                         {post.estimatedTime}
                                         {` `}
                                         mins
