@@ -11,9 +11,14 @@ app.use(cors());
 app.use(express.json());
 
 //obtaining routes
-const userRoutes = require("./routes/userRoutes");
 
-app.use("/users", userRoutes);
+//userRoutes
+const userRoutes = require(`./routes/userRoutes`);
+//recipeRoute
+const recipeRoutes = require(`./routes/recipeRoutes`);
+
+app.use(`/users`, userRoutes);
+app.use(`/recipe`, recipeRoutes);
 
 //mongoatlas connection string
 const uri = process.env.CONNECTIONSTRING;
@@ -26,11 +31,4 @@ mongoose.connect(uri, {
     useCreateIndex: true,
 });
 
-const connection = mongoose.connection;
-connection.once("open", () => {
-    console.log("Mongodb connection complete");
-});
-
-app.listen(port, () => {
-    console.log(`you are running the express server on port: ${port}`);
-});
+app.listen(port);

@@ -3,3 +3,8 @@
         "Lucida Sans", Arial, sans-serif;
     background-color: #e1f2fb;
 }
+.gravatarImg {
+    width: 50px;
+    border-radius: 75%;
+   
+}
