@@ -1,4 +1,3 @@
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -8,7 +7,8 @@ import Routes from "./components/Routing/Routes";
 
 const App = () => {
     const [loginData, setLoginData] = useState({
-        loggedIn: false,
+        loggedIn: Boolean(localStorage.getItem(`userId`)),
+        userId: ``,
     });
 
     return (

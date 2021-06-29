@@ -1,7 +1,14 @@
 import React, { Fragment } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-const LoggedNav = (props) => {
+const LoggedNav = () => {
+    const logoutBtn = () => {
+        window.location.reload(false);
+        localStorage.removeItem(`userId`);
+        localStorage.removeItem(`gravatar`);
+        localStorage.removeItem(`userEmail`);
+    };
+
     return (
         <Fragment>
             <Navbar.Collapse>
@@ -10,9 +17,13 @@ const LoggedNav = (props) => {
                     <Nav.Link href="/ingredients">Ingredients List</Nav.Link>
 
                     <NavDropdown title="Recipes" className="mr-5">
-                        <NavDropdown.Item>My Recipes</NavDropdown.Item>
+                        <NavDropdown.Item href="/my-recipes">
+                            My Recipes
+                        </NavDropdown.Item>
                         <NavDropdown.Item>Saved Recipes</NavDropdown.Item>
-                        <NavDropdown.Item>Browse Recipes</NavDropdown.Item>
+                        <NavDropdown.Item href="/browse-recipes">
+                            Browse Recipes
+                        </NavDropdown.Item>
                     </NavDropdown>
 
                     <input
@@ -24,13 +35,23 @@ const LoggedNav = (props) => {
                         search
                     </button>
 
-                    <Nav.Link
-                        onClick={() => {
-                            props.logout();
-                        }}
+                    <NavDropdown
+                        title={
+                            <img
+                                className="gravatarImg"
+                                src={localStorage.getItem("gravatar")}
+                                alt="user gravatar"
+                            />
+                        }
+                        className="mr-5"
                     >
-                        Sign Out
-                    </Nav.Link>
+                        <NavDropdown.Item href="/account-settings">
+                            My Account Details
+                        </NavDropdown.Item>
+                        <NavDropdown.Item onClick={logoutBtn}>
+                            Sign Out
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
         </Fragment>

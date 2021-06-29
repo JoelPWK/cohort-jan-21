@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState, Fragment } from "react";
 import { Navbar } from "react-bootstrap";
+import { Route, Redirect } from "react-router-dom";
 import LoggedNav from "./LoggedNav";
 import LoggedOutNav from "./LoggedOutNav";
 import logo from "../../Images/logo.png";
@@ -43,7 +44,23 @@ const Navigation = (props) => {
                             loggedIn: true,
                             userId: response.data,
                         });
+                        localStorage.setItem(`userId`, response.data.userId);
+                        localStorage.setItem(
+                            `gravatar`,
+                            response.data.userAvatar
+                        );
+                        localStorage.setItem(
+                            `userEmail`,
+                            response.data.userEmail
+                        );
                         setLoginRequest();
+                        console.log(window.location);
+                        if (
+                            window.location.pathname === `/` ||
+                            window.location.pathname === `/register`
+                        ) {
+                            window.location.pathname = `/dashboard`;
+                        }
                     } else {
                         alertHandler(
                             `Invalid login credentials`,
@@ -58,9 +75,14 @@ const Navigation = (props) => {
     };
 
     const toggleLogOut = () => {
-        props.setLoginData({
-            loggedIn: false,
-        });
+        props.setLoginData(
+            localStorage.removeItem(`userId`),
+            localStorage.removeItem(`gravatar`),
+            localStorage.removeItem(`userEmail`),
+            {
+                loggedIn: false,
+            }
+        );
     };
 
     return (

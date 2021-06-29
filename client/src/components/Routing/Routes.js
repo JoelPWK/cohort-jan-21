@@ -8,6 +8,10 @@ import CreateRecipe from "../Pages/CreateRecipe";
 import Ingredients from "../Pages/Ingredients";
 import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
+import MyRecipes from "../Pages/MyRecipes";
+import EditRecipe from "../Pages/EditRecipe";
+import BrowseRecipes from "../Pages/BrowseRecipes";
+import AccountSettings from "../Pages/AccountSettings";
 
 const Routes = () => {
     return (
@@ -17,14 +21,22 @@ const Routes = () => {
                 <Route exact path="/" component={CarouselBootstrap} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/recipe/:id" />
-                <PrivateRoute exact path="/my-recipes" />
+                <PrivateRoute exact path="/my-recipes" component={MyRecipes} />
+                <PrivateRoute
+                    exact
+                    path="/browse-recipes"
+                    component={BrowseRecipes}
+                />
                 <PrivateRoute
                     exact
                     path="/create-recipe"
                     component={CreateRecipe}
                 />
-                <PrivateRoute exact path="/edit-recipe" />
+                <PrivateRoute
+                    exact
+                    path="/edit-recipe"
+                    component={EditRecipe}
+                />
                 <PrivateRoute
                     exact
                     path="/ingredients"
@@ -32,6 +44,11 @@ const Routes = () => {
                 />
                 <PrivateRoute exact path="/add-ingredient" />
                 <PrivateRoute exact path="/edit-ingredient" />
+                <PrivateRoute
+                    exact
+                    path="/account-settings"
+                    component={AccountSettings}
+                />
                 <Route component={NotFound} />
             </Switch>
         </Fragment>
