@@ -54,8 +54,13 @@ const Navigation = (props) => {
                             response.data.userEmail
                         );
                         setLoginRequest();
-                        window.location.reload(false);
-                        window.location.href = `/dashboard`;
+                        console.log(window.location);
+                        if (
+                            window.location.pathname === `/` ||
+                            window.location.pathname === `/register`
+                        ) {
+                            window.location.pathname = `/dashboard`;
+                        }
                     } else {
                         alertHandler(
                             `Invalid login credentials`,
@@ -71,9 +76,9 @@ const Navigation = (props) => {
 
     const toggleLogOut = () => {
         props.setLoginData(
-            localStorage.removeItem("userId"),
-            localStorage.removeItem("gravatar"),
-            localStorage.removeItem("userEmail"),
+            localStorage.removeItem(`userId`),
+            localStorage.removeItem(`gravatar`),
+            localStorage.removeItem(`userEmail`),
             {
                 loggedIn: false,
             }

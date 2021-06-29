@@ -4,9 +4,9 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 const LoggedNav = () => {
     const logoutBtn = () => {
         window.location.reload(false);
-        localStorage.removeItem("userId");
-        localStorage.removeItem("gravatar");
-        localStorage.removeItem("userEmail");
+        localStorage.removeItem(`userId`);
+        localStorage.removeItem(`gravatar`);
+        localStorage.removeItem(`userEmail`);
     };
 
     return (

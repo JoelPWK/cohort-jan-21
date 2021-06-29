@@ -39,18 +39,18 @@ const AccountDetails = () => {
 
     const submitEmailChange = async (e) => {
         e.preventDefault();
-
         if (currentEmail !== userEmail) {
             alertHandler(`Current email address is incorrect`, `alert-danger`);
-        }
-        try {
-            await Axios.put(`http://localhost:3001/users/${userId}`, {
-                email: newEmail,
-            });
-            alertHandler(`Email successfully updated`, `alert-success`);
-            localStorage.setItem(`userEmail`, newEmail);
-        } catch (err) {
-            alertHandler(`Error: ${err}`, `alert-danger`);
+        } else {
+            try {
+                await Axios.put(`http://localhost:3001/users/${userId}`, {
+                    email: newEmail,
+                });
+                alertHandler(`Email successfully updated`, `alert-success`);
+                localStorage.setItem(`userEmail`, newEmail);
+            } catch (err) {
+                alertHandler(`${err}`, `alert-danger`);
+            }
         }
     };
 
@@ -63,12 +63,12 @@ const AccountDetails = () => {
             localStorage.removeItem(`gravatar`);
             localStorage.removeItem(`userEmail`);
         } catch (err) {
-            alertHandler(`Error: ${err}`, `alert-danger`);
+            alertHandler(`${err}`, `alert-danger`);
         }
     };
 
     return (
-        <div className="mx-auto text-center w-50">
+        <div className="mx-auto text-center w-50 mt-3">
             {/* Check if there is an alert and show it, else return an empty fragment */}
             <Fragment>
                 {alert.showing === true ? (

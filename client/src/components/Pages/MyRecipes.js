@@ -3,12 +3,12 @@ import Container from "react-bootstrap/Container";
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Axios from "axios";
-import "./MyRecipes.css";
+import "./RecipeCards.css";
 
 const MyRecipes = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
-    const loggedUser = localStorage.getItem("userId");
+    const loggedUser = localStorage.getItem(`userId`);
     const [modalPost, setModalPost] = useState({});
     const [show, setShow] = useState(false);
     const [deletePost, setDeletePost] = useState(false);
@@ -16,10 +16,16 @@ const MyRecipes = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    //Initial state of alert
+    const [alert, setAlert] = useState({
+        msg: ``,
+        type: ``,
+        showing: false,
+    });
+
     //holding values - non mvp:
 
-    const holdingImg =
-        "https://cdn.dribbble.com/users/88000/screenshots/2487367/shot.png";
+    const holdingImg = `https://cdn.dribbble.com/users/88000/screenshots/2487367/shot.png`;
     const holdingLikes = Math.floor(Math.random() * 100);
 
     const fetchPosts = async () => {
@@ -27,8 +33,8 @@ const MyRecipes = () => {
             const response = await Axios.get("http://localhost:3001/recipe/");
             setIsLoading(false);
             setPosts(response.data);
-        } catch (e) {
-            console.log("oops there is an issue");
+        } catch (err) {
+            alertHandler(`${err}`, `alert-danger`);
         }
     };
 
@@ -36,14 +42,12 @@ const MyRecipes = () => {
         fetchPosts();
     }, []);
 
-    if (isLoading) return <div>Loading...</div>;
-
     const modalLaunch = (post) => {
         handleShow();
         setModalPost({
             ...post,
-            ingredients: post.ingredients.toString().replace(/,[s]*/g, ", "),
-            tools: post.tools.toString().replace(/,[s]*/g, ", "),
+            ingredients: post.ingredients.toString().replace(/,[s]*/g, `, `),
+            tools: post.tools.toString().replace(/,[s]*/g, `, `),
         });
     };
 
@@ -53,13 +57,37 @@ const MyRecipes = () => {
             handleClose();
             setDeletePost(false);
             fetchPosts();
-        } catch (e) {
-            console.log(`error`);
+        } catch (err) {
+            alertHandler(`${err}`, `alert-danger`);
         }
     };
 
+    //Creating an alert function to remove an alert after a set time, currently set at 5 sec
+    const alertHandler = (msg, type, showing = true) => {
+        setAlert({ ...alert, msg: msg, type: type, showing: showing });
+        if (msg.length > 0) {
+            setTimeout(() => {
+                alertHandler(``, ``, false);
+            }, 5000);
+        }
+    };
+
+    if (isLoading) return <div>Loading...</div>;
+
     return (
-        <Container>
+        <Container className="mt-3">
+            {/* Check if there is an alert and show it, else return an empty fragment */}
+            <Fragment>
+                {alert.showing === true ? (
+                    <div
+                        className={`inline-block w-50 mx-auto alert ${alert.type}`}
+                    >
+                        {alert.msg}
+                    </div>
+                ) : (
+                    <Fragment />
+                )}
+            </Fragment>
             <h1>My Recipes</h1>
             <br />
             <div className="cardContainer">
@@ -89,13 +117,13 @@ const MyRecipes = () => {
                                         Instructions: {post.instructions}
                                     </p>
                                     <p className="cardIngredients">
-                                        Ingredients:{" "}
+                                        Ingredients:{` `}
                                         {post.ingredients
                                             .toString()
-                                            .replace(/,[s]*/g, ", ")}
+                                            .replace(/,[s]*/g, `, `)}
                                     </p>
                                     <p>
-                                        Estimate cooking time:{" "}
+                                        Estimate cooking time:{` `}
                                         {post.estimatedTime} mins
                                     </p>
                                     <p>
@@ -166,21 +194,23 @@ const MyRecipes = () => {
                     )}
                     <p>
                         <b>
-                            Estimated time to complete meal:{" "}
+                            Estimated time to complete meal:{` `}
                             {modalPost.estimatedTime} mins
                         </b>
                     </p>
                     <div className="modalToolsIngredients">
                         <p>
                             <b>
-                                <u>Tools </u>{" "}
+                                <u>Tools </u>
+                                {` `}
                             </b>
                             <br />
                             {modalPost.tools}
                         </p>
                         <p>
                             <b>
-                                <u>Ingredients</u>{" "}
+                                <u>Ingredients</u>
+                                {` `}
                             </b>
                             <br />
                             {modalPost.ingredients}

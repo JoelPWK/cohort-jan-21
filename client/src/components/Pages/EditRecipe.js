@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
@@ -6,10 +6,14 @@ import Axios from "axios";
 const EditRecipe = (props) => {
     const [formData, setFormData] = useState(props.location.modalPost);
     const [alert, setAlert] = useState({
-        msg: "",
-        type: "",
+        msg: ``,
+        type: ``,
         showing: false,
     });
+
+    if (!props.location.modalPost) {
+        window.location.href = `/dashboard`;
+    }
 
     const {
         _id,
@@ -31,7 +35,7 @@ const EditRecipe = (props) => {
         setAlert({ ...alert, msg: msg, type: type, showing: showing });
         if (msg.length > 0) {
             setTimeout(() => {
-                alertHandler("", "", false);
+                alertHandler(``, ``, false);
             }, 5000);
         }
     };
@@ -55,7 +59,8 @@ const EditRecipe = (props) => {
 
         try {
             await Axios.put(`http://localhost:3001/recipe/${_id}`, recipeData);
-            alertHandler("Recipe updated", "alert-success");
+            alertHandler(`Recipe updated`, `alert-success`);
+            window.location.href = `/dashboard`;
         } catch (err) {
             alertHandler(`${err}`, `alert-danger`);
         }

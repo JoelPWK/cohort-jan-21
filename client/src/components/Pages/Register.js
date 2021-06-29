@@ -3,17 +3,17 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 
-const Register = (props) => {
+const Register = () => {
     //Initial state of form data
     const [formData, setFormData] = useState({
-        email: "",
-        password1: "",
-        password2: "",
+        email: ``,
+        password1: ``,
+        password2: ``,
     });
     //Initial state of alert
     const [alert, setAlert] = useState({
-        msg: "",
-        type: "",
+        msg: ``,
+        type: ``,
         showing: false,
     });
 
@@ -29,7 +29,7 @@ const Register = (props) => {
         setAlert({ ...alert, msg: msg, type: type, showing: showing });
         if (msg.length > 0) {
             setTimeout(() => {
-                alertHandler("", "", false);
+                alertHandler(``, ``, false);
             }, 5000);
         }
     };
@@ -39,7 +39,7 @@ const Register = (props) => {
         e.preventDefault();
         //Check if both passwords match and display alert
         if (password1 !== password2) {
-            alertHandler("Passwords do not match", "alert-danger");
+            alertHandler(`Passwords do not match`, `alert-danger`);
             //if they match then save the user to database and display the alert
         } else {
             const registerData = {
@@ -48,12 +48,10 @@ const Register = (props) => {
             };
             //adding data into the database
             await Axios.post(
-                "http://localhost:3001/users/add-user",
+                `http://localhost:3001/users/add-user`,
                 registerData
             );
-            alertHandler("User registered", "alert-success");
-            //TODO:: clearing input fields
-
+            alertHandler(`User registered`, `alert-success`);
             loginUser(registerData);
         }
     };
@@ -66,14 +64,13 @@ const Register = (props) => {
                     localStorage.setItem(`gravatar`, response.data.userAvatar);
                     localStorage.setItem(`userEmail`, response.data.userEmail);
                     window.location.reload(false);
+                    window.location.href = `/dashboard`;
                 } else {
                     alertHandler(`Invalid login credentials`, `alert-danger`);
                 }
             }
         );
     };
-
-    //TODO:: get user's token and if token is authenticated redirect user to their dashboard
 
     return (
         //Used only Bootstrap CSS classes and the icon from fontawesome

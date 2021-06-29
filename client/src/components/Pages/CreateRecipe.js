@@ -5,19 +5,19 @@ import Axios from "axios";
 
 const CreateRecipe = () => {
     const [formData, setFormData] = useState({
-        name: "",
-        ingredients: "",
-        instructions: "",
-        tools: "",
-        estimatedTime: "",
-        author: localStorage.getItem("userId"),
-        gravatar: localStorage.getItem("gravatar"),
+        name: ``,
+        ingredients: ``,
+        instructions: ``,
+        tools: ``,
+        estimatedTime: ``,
+        author: localStorage.getItem(`userId`),
+        gravatar: localStorage.getItem(`gravatar`),
     });
 
     //Initial state of alert
     const [alert, setAlert] = useState({
-        msg: "",
-        type: "",
+        msg: ``,
+        type: ``,
         showing: false,
     });
 
@@ -40,13 +40,13 @@ const CreateRecipe = () => {
         setAlert({ ...alert, msg: msg, type: type, showing: showing });
         if (msg.length > 0) {
             setTimeout(() => {
-                alertHandler("", "", false);
+                alertHandler(``, ``, false);
             }, 5000);
         }
     };
 
-    //imageUpload
-    // const uploadImage = () => {};
+    //TODO: imageUpload
+    const uploadImage = () => {};
 
     //Create recipe button used async cause it will send an API request
     const onSubmit = async (e) => {
@@ -62,8 +62,9 @@ const CreateRecipe = () => {
             gravatar: gravatar,
         };
 
-        await Axios.post("http://localhost:3001/recipe/add-recipe", recipeData);
-        alertHandler("Recipe created", "alert-success");
+        await Axios.post(`http://localhost:3001/recipe/add-recipe`, recipeData);
+        alertHandler(`Recipe created`, `alert-success`);
+        window.location.href = `/dashboard`;
     };
 
     return (
@@ -181,12 +182,12 @@ const CreateRecipe = () => {
                             />
                         </div>
                     </div>
-                    {/* <div className="form-group row">
+                    <div className="form-group row">
                         <label className="col-sm-2 col-form-label">
                             Image upload
                         </label>
                         <button onClick={uploadImage}>Image Upload</button>
-                    </div> */}
+                    </div>
 
                     {/* Submit button */}
 

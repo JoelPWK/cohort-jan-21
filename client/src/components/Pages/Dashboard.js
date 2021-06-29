@@ -6,7 +6,7 @@ import MyRecipes from "./MyRecipes";
 const Dashboard = () => {
     return (
         <Container>
-            {localStorage.getItem("userId") ? <MyRecipes /> : <Fragment />}
+            {localStorage.getItem(`userId`) ? <MyRecipes /> : <Fragment />}
             <BrowseRecipes />
         </Container>
     );

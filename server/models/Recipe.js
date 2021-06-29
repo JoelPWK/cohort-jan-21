@@ -18,7 +18,6 @@ const recipeSchema = mongoose.Schema(
                 required: true,
             },
         ],
-        // likes: [{ user: { type: ObjectId, ref: `User` } }],
         estimatedTime: { type: Number, required: true },
         image: { type: String },
     },
