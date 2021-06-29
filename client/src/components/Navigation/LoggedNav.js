@@ -46,7 +46,7 @@ const LoggedNav = () => {
                         className="mr-5"
                     >
                         <NavDropdown.Item href="/account-settings">
-                            My Account Details
+                            My Account Settings
                         </NavDropdown.Item>
                         <NavDropdown.Item onClick={logoutBtn}>
                             Sign Out
