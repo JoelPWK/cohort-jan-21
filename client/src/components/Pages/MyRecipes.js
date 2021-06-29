@@ -182,14 +182,18 @@ const MyRecipes = () => {
                             Are you sure you want to delete this post? <br />
                             This action cannot be undone.
                             <br />
-                            <button
+                            <Button
+                                className="btn-danger mx-2"
                                 onClick={() => deleteRecipeCard(modalPost._id)}
                             >
-                                Yes
-                            </button>
-                            <button onClick={() => setDeletePost(false)}>
-                                No
-                            </button>
+                                Yes - delete
+                            </Button>
+                            <Button
+                                className="btn-success mx-2"
+                                onClick={() => setDeletePost(false)}
+                            >
+                                No - go back
+                            </Button>
                         </div>
                     ) : (
                         <Fragment />

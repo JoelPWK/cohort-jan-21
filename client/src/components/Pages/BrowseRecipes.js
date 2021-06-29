@@ -192,18 +192,20 @@ const BrowseRecipes = () => {
                                     <br />
                                     This action cannot be undone.
                                     <br />
-                                    <button
+                                    <Button
+                                        className="btn-danger mx-2"
                                         onClick={() =>
                                             deleteRecipeCard(modalPost._id)
                                         }
                                     >
-                                        Yes
-                                    </button>
-                                    <button
+                                        Yes - delete
+                                    </Button>
+                                    <Button
+                                        className="btn-success mx-2"
                                         onClick={() => setDeletePost(false)}
                                     >
-                                        No
-                                    </button>
+                                        No - go back
+                                    </Button>
                                 </div>
                             ) : (
                                 <Fragment />
