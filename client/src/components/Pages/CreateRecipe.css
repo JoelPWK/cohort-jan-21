@@ -1,6 +1,6 @@
 .uploadImageContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     height: 250px;
     width: 58vw;
