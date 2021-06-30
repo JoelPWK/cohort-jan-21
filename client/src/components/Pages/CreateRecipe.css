@@ -1,0 +1,9 @@
+.uploadImageContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 250px;
+    width: 58vw;
+    border: solid 1px black;
+    margin-bottom: 10px;
+}

@@ -38,6 +38,15 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         //Check if both passwords match and display alert
+
+        // const regex1 = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/)
+
+        // if (regex.test(password)) {
+        //     console.log('true')
+        // } else {
+        //     console.log('false')
+        // }
+
         if (password1 !== password2) {
             alertHandler(`Passwords do not match`, `alert-danger`);
             //if they match then save the user to database and display the alert

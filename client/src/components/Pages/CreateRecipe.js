@@ -2,6 +2,8 @@ import React, { Fragment, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
+import ImageUploading from 'react-images-uploading';
+import './CreateRecipe.css'
 
 const CreateRecipe = () => {
     const [formData, setFormData] = useState({
@@ -46,7 +48,15 @@ const CreateRecipe = () => {
     };
 
     //TODO: imageUpload
-    const uploadImage = () => {};
+    //Image upload
+    const [images, setImages] = useState([])
+    const maxNumber = 2;
+
+    const imageChange = (imageList, addUpdateIndex) => {
+        // data for submit
+        console.log(imageList)
+        setImages(imageList);
+    };
 
     //Create recipe button used async cause it will send an API request
     const onSubmit = async (e) => {
@@ -60,6 +70,7 @@ const CreateRecipe = () => {
             estimatedTime: estimatedTime,
             author: author,
             gravatar: gravatar,
+            image: images.data_url
         };
 
         await Axios.post(`http://localhost:3001/recipe/add-recipe`, recipeData);
@@ -182,14 +193,57 @@ const CreateRecipe = () => {
                             />
                         </div>
                     </div>
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                         <label className="col-sm-2 col-form-label">
                             Image upload
                         </label>
                         <button onClick={uploadImage}>Image Upload</button>
-                    </div>
+                    </div> */}
 
                     {/* Submit button */}
+
+                    {/* Image upload */}
+                    <div className='uploadImageContainer'>
+                    <ImageUploading
+                        multiple
+                        value={images}
+                        onChange={imageChange}
+                        maxNumber={maxNumber}
+                        dataURLKey="data_url"
+                    >
+                        {({
+                            imageList,
+                            onImageUpload,
+                            onImageRemoveAll,
+                            onImageUpdate,
+                            onImageRemove,
+                            isDragging,
+                            dragProps,
+                        }) => (
+                            // write your building UI
+                            <div className="upload__image-wrapper">
+                                <Button className="btn btn-success mb-4"
+                                    style={isDragging ? { color: 'red' } : undefined}
+                                    onClick={onImageUpload}
+                                    {...dragProps}
+                                >
+                                    Click or Drop here
+                                </Button>
+                                &nbsp;
+                                <Button className="btn btn-danger mb-4" onClick={onImageRemoveAll}>Remove all images</Button>
+                                {imageList.map((image, index) => (
+                                    <div key={index} className="image-item">
+                                        <img src={image['data_url']} alt="user's recipe" width="150" />
+                                        <div className="image-item__btn-wrapper">
+                                            <Button className="btn btn-warning mr-2" onClick={() => onImageUpdate(index)}>Update</Button>
+                                            <Button className="btn btn-danger" onClick={() => onImageRemove(index)}>Remove</Button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </ImageUploading>
+                    </div>
 
                     <Button className="mb-4" variant="primary" type="submit">
                         Create recipe
